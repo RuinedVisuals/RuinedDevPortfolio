@@ -1,0 +1,30 @@
+// ==========================================================================
+// DESIGN TOKENS
+// Change ANY value below to reskin the entire site. Everything downstream
+// consumes CSS custom properties, so this is the single source of truth.
+// ==========================================================================
+
+// ---- Raw palette (edit these to change the whole site's colors) --------
+$color-red: #F40C3F; // primary accent
+$color-black: #0a0a0a; // ink
+$color-cream: #f4efe9; // paper / light text on dark
+$color-red-dim: #c21f0e; // hover / muted red
+
+// ---- Type ---------------------------------------------------------------
+$font-display: 'Anton', 'Arial Narrow', sans-serif; // big condensed headlines
+$font-display-giant: 'Bigger Display', 'Anton', 'Arial Narrow', sans-serif; // the largest hero-scale titles
+$font-body: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+$font-serif: 'Georgia', 'Times New Roman', serif; // "Selected work" italic line
+
+// ---- Layout ---------------------------------------------------------------
+$container-max: 1600px;
+$gutter: clamp(20px, 4vw, 64px);
+
+// ---- Motion --------------------------------------------------------------
+$ease-cinematic: cubic-bezier(0.83, 0, 0.17, 1);
+$ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+$dur-curtain: 1.1s;
+
+// ---- Breakpoints -----------------------------------------------------------
+$bp-tablet: 900px;
+$bp-mobile: 600px;

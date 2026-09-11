@@ -1,0 +1,116 @@
+@use '../../styles/abstracts/mixins' as m;
+@use '../../styles/abstracts/variables' as v;
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  height: 350vh;
+  background: var(--surface-b);
+  color: var(--ink-on-b);
+
+  &__wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  &__grid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: min(760px, 72vw);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(10px, 2vw, 28px);
+    will-change: transform;
+
+    @include m.mobile {
+      width: 88vw;
+      gap: 8px;
+    }
+  }
+
+  &__item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 6px;
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  &__item-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 v.$gutter;
+  }
+
+  &__eyebrow {
+    opacity: 0.75;
+    margin-bottom: clamp(12px, 2vw, 20px);
+  }
+
+  &__title {
+    @include m.giant-type;
+    font-size: clamp(48px, 9vw, 110px);
+  }
+
+  &__description {
+    max-width: 480px;
+    margin-top: clamp(16px, 2.4vw, 24px);
+    font-size: clamp(14px, 1.4vw, 17px);
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  &__button-wrap {
+    margin-top: clamp(24px, 3.4vw, 36px);
+  }
+
+  &__link {
+    color: var(--ink-on-b);
+    font-size: 18px;
+  }
+}
+
+// Skip the pin/zoom entirely for users who asked for less motion — the JS
+// bails out too, so this just collapses the layout into a normal section.
+@media (prefers-reduced-motion: reduce) {
+  .site-footer {
+    height: auto;
+
+    &__wrapper {
+      position: static;
+      height: auto;
+      padding: clamp(64px, 10vw, 120px) 0;
+      overflow: visible;
+    }
+
+    &__grid {
+      position: static;
+      transform: none;
+      margin: 0 auto clamp(32px, 5vw, 56px);
+    }
+
+    &__content {
+      position: static;
+      height: auto;
+      padding: 0 v.$gutter;
+    }
+  }
+}

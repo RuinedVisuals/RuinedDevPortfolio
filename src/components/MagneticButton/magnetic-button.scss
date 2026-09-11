@@ -1,0 +1,19 @@
+.magnetic {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+  will-change: transform;
+
+  &__inner {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &:hover .magnetic__inner {
+    transform: translateX(2px);
+  }
+}

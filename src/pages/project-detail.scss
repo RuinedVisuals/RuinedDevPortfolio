@@ -1,0 +1,99 @@
+@use '../styles/abstracts/mixins' as m;
+@use '../styles/abstracts/variables' as v;
+
+.project-detail {
+  &__hero {
+    position: relative;
+    min-height: 70svh;
+    display: flex;
+    align-items: flex-end;
+    padding: calc(var(--header-h) + 40px) v.$gutter 56px;
+    color: var(--cream);
+
+    // Keeps the title/tagline readable once a real photo replaces the flat
+    // placeholder color.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 55%);
+      pointer-events: none;
+    }
+  }
+
+  &__hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+
+    .eyebrow {
+      opacity: 0.75;
+      margin-bottom: 12px;
+    }
+  }
+
+  &__title {
+    @include m.giant-type;
+    font-size: clamp(48px, 10vw, 140px);
+    margin-bottom: 16px;
+  }
+
+  &__tagline {
+    font-size: clamp(16px, 2vw, 22px);
+    max-width: 520px;
+  }
+
+  &__body {
+    background: var(--surface-a);
+    color: var(--ink-on-a);
+    padding: clamp(40px, 6vw, 80px) v.$gutter;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    border-bottom: 1px solid var(--line-on-a);
+
+    @include m.tablet {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .eyebrow {
+      display: block;
+      opacity: 0.6;
+      margin-bottom: 6px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+  }
+
+  &__desc {
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.45;
+    max-width: 560px;
+  }
+
+  &__next {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface-a);
+    color: var(--ink-on-a);
+    padding: clamp(28px, 4vw, 40px) v.$gutter;
+
+    .eyebrow {
+      opacity: 0.6;
+    }
+  }
+
+  &__next-name {
+    @include m.display-type;
+    font-size: clamp(24px, 4vw, 40px);
+  }
+}

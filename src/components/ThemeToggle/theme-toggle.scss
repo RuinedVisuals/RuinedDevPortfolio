@@ -1,0 +1,23 @@
+.theme-toggle {
+  &__track {
+    display: inline-flex;
+    align-items: center;
+    width: 34px;
+    height: 18px;
+    border-radius: 999px;
+    border: 1px solid var(--ink-on-a);
+    padding: 2px;
+  }
+
+  &__thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ink-on-a);
+    transition: transform 0.4s cubic-bezier(0.83, 0, 0.17, 1);
+  }
+
+  &[aria-pressed='true'] &__thumb {
+    transform: translateX(15px);
+  }
+}

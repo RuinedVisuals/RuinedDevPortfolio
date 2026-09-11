@@ -1,0 +1,35 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+h1,
+h2,
+h3,
+h4 {
+  @include m.display-type;
+}
+
+.eyebrow {
+  font-family: v.$font-body;
+  font-size: clamp(11px, 1vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.serif-line {
+  font-family: v.$font-serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+// Word/char reveal masks used by SplitReveal component
+.split-line {
+  overflow: hidden;
+  display: block;
+}
+
+.split-word,
+.split-char {
+  will-change: transform;
+}

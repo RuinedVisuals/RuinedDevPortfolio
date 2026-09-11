@@ -1,0 +1,67 @@
+@use '../styles/abstracts/mixins' as m;
+@use '../styles/abstracts/variables' as v;
+
+.contact-page {
+  background: var(--surface-a);
+  color: var(--ink-on-a);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--header-h) + clamp(24px, 6vw, 56px)) v.$gutter clamp(60px, 8vw, 100px);
+
+  .eyebrow {
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    @include m.giant-type;
+    font-size: clamp(40px, 8vw, 100px);
+    margin-bottom: clamp(32px, 5vw, 56px);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 560px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    input,
+    textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line-on-a);
+      color: var(--ink-on-a);
+      padding: 10px 0;
+      font-size: 16px;
+      text-transform: none;
+      letter-spacing: normal;
+      resize: none;
+
+      &:focus {
+        outline: none;
+        border-color: var(--ink-on-a);
+      }
+    }
+  }
+
+  &__submit {
+    align-self: flex-start;
+    margin-top: 8px;
+    color: var(--ink-on-a);
+  }
+
+  &__sent {
+    font-size: clamp(18px, 2vw, 24px);
+    max-width: 480px;
+  }
+}

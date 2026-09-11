@@ -1,0 +1,79 @@
+@use '../abstracts/variables' as v;
+
+:root {
+  // ---- raw hues, piped from the SCSS tokens ----
+  --red: #{v.$color-red};
+  --red-dim: #{v.$color-red-dim};
+  --black: #{v.$color-black};
+  --cream: #{v.$color-cream};
+
+  // ---- semantic roles ----
+  // Default scheme: red canvas / black ink (as in the reference design)
+  --surface-a: var(--red); // primary section background
+  --surface-b: var(--black); // secondary section background
+  --ink-on-a: var(--black); // text sitting on surface-a
+  --ink-on-b: var(--red); // text/accents sitting on surface-b
+  --line-on-a: rgba(10, 10, 10, 0.35);
+  --line-on-b: rgba(255, 43, 22, 0.35);
+
+  --cursor-mix: var(--black);
+
+  --radius-pill: 999px;
+  --header-h: clamp(40px, 8vw, 50px);
+}
+
+// Global color switch: flips which hue is "canvas" vs "ink" across the
+// whole site. Toggle by adding [data-theme='reversed'] to <html>.
+html[data-theme='reversed'] {
+  --surface-a: var(--black);
+  --surface-b: var(--red);
+  --ink-on-a: var(--red);
+  --ink-on-b: var(--black);
+  --line-on-a: rgba(255, 43, 22, 0.35);
+  --line-on-b: rgba(10, 10, 10, 0.35);
+}
+
+html {
+  scroll-behavior: auto; // lenis governs actual smoothing
+  background: var(--surface-a);
+}
+
+body {
+  background: var(--surface-a);
+  color: var(--ink-on-a);
+  font-family: v.$font-body;
+}
+
+// Lenis required scaffolding
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--ink-on-a);
+  color: var(--surface-a);
+}
+
+// Keeps the routed page painting above the footer so the footer's own
+// scroll-in parallax slides in underneath it instead of covering it.
+.page-content {
+  position: relative;
+  z-index: 2;
+}
+
+// hide native cursor once custom cursor is active (desktop, fine pointer only)
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none !important;
+  }
+}

@@ -1,0 +1,22 @@
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  display: flex;
+
+  &__panel {
+    flex: 1;
+    height: 100%;
+    background: var(--black);
+    transform: translateY(100%);
+
+    &:nth-child(even) {
+      background: var(--red);
+    }
+  }
+}
+
+body.is-transitioning {
+  cursor: wait;
+}
