@@ -1,0 +1,54 @@
+@use '../../styles/abstracts/mixins' as m;
+@use '../../styles/abstracts/variables' as v;
+
+.cta-footer {
+  position: relative;
+  min-height: 90svh;
+  background: var(--surface-b);
+  color: var(--ink-on-b);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(64px, 10vw, 120px) v.$gutter;
+  overflow: hidden;
+
+  &--short {
+    min-height: 70svh;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__eyebrow {
+    opacity: 0.75;
+    margin-bottom: clamp(12px, 2vw, 20px);
+  }
+
+  &__title {
+    @include m.giant-type;
+    font-size: clamp(48px, 9vw, 110px);
+  }
+
+  &__description {
+    max-width: 480px;
+    margin-top: clamp(16px, 2.4vw, 24px);
+    font-size: clamp(14px, 1.4vw, 17px);
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  &__button-wrap {
+    margin-top: clamp(24px, 3.4vw, 36px);
+  }
+
+  &__link {
+    font-size: 18px;
+  }
+}

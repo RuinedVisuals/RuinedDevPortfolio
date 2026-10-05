@@ -1,0 +1,16 @@
+.palette-swatches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transition: box-shadow 0.3s ease;
+
+    &.is-active {
+      box-shadow: 0 0 0 2px var(--sa), 0 0 0 3px currentColor;
+    }
+  }
+}

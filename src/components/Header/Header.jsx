@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '../MagneticButton/MagneticButton';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import PaletteSwatches from '../PaletteSwatches/PaletteSwatches';
+import MobileMenu from '../MobileMenu/MobileMenu';
 import './header.scss';
 
 const links = [
   { label: 'Work', to: '/work' },
+  { label: 'Lab', to: '/#lab' },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ];
@@ -13,6 +16,7 @@ const links = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const close = useCallback(() => setOpen(false), []);
 
   // Solid dark bar once the page has scrolled a little, so the header stays
   // legible over any section color without relying on blend-mode tricks
@@ -26,7 +30,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+    <header className={`site-header ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-menu-open' : ''}`}>
       <div className="site-header__row">
         <Link to="/" className="site-header__logo" data-cursor="Home">
           AG.
@@ -42,13 +46,16 @@ export default function Header() {
         </nav>
 
         <div className="site-header__right">
+          <PaletteSwatches />
           <ThemeToggle />
           <button
             type="button"
             className={`burger ${open ? 'is-open' : ''}`}
             onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
+            aria-controls="mobile-menu"
+            data-cursor={open ? 'Close' : 'Menu'}
           >
             <span />
             <span />
@@ -56,19 +63,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className={`mobile-nav ${open ? 'is-open' : ''}`}>
-        {links.map((l, i) => (
-          <Link
-            key={l.to}
-            to={l.to}
-            className="mobile-nav__link"
-            style={{ transitionDelay: `${i * 0.05}s` }}
-            onClick={() => setOpen(false)}
-          >
-            {l.label}
-          </Link>
-        ))}
-      </div>
+      <MobileMenu open={open} onClose={close} links={links} />
     </header>
   );
 }

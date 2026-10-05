@@ -5,6 +5,22 @@
   background: var(--surface-b);
   color: var(--ink-on-b);
   padding: clamp(48px, 7vw, 90px) v.$gutter;
+  position: relative;
+  overflow: hidden;
+
+  &--a {
+    background: var(--surface-a);
+    color: var(--ink-on-a);
+  }
+
+  &__pattern {
+    mask-image: radial-gradient(ellipse at 85% 50%, #000 0%, transparent 60%);
+  }
+
+  &__tag,
+  &__grid {
+    position: relative;
+  }
 
   &__tag {
     display: block;

@@ -1,0 +1,251 @@
+@use '../../styles/abstracts/mixins' as m;
+@use '../../styles/abstracts/variables' as v;
+
+// Sits just under the header (z 500) so the logo + burger stay on top, and
+// under the route / theme curtains (z 900).
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 490;
+  color: var(--ib);
+  visibility: hidden;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: none;
+
+  &__layer {
+    position: absolute;
+    inset: 0;
+
+    &--a {
+      background: var(--sa);
+    }
+
+    &--b {
+      background: var(--sb);
+    }
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--header-h) + clamp(16px, 4vh, 32px)) v.$gutter max(24px, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    touch-action: pan-y;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line-on-b);
+  }
+
+  &__top-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  // Pill close button; the X spins a quarter turn on press.
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px 10px 18px;
+    border: 1px solid currentColor;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.3s ease, color 0.3s ease;
+
+    &:is(:hover, :active, :focus-visible) {
+      background: var(--ib);
+      color: var(--sb);
+      outline: none;
+    }
+  }
+
+  &__close-x {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    transition: transform 0.45s v.$ease-cinematic;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background: currentColor;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__close:is(:hover, :active, :focus-visible) &__close-x {
+    transform: rotate(90deg);
+  }
+
+  &__muted {
+    opacity: 0.6;
+  }
+
+  &__nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(16px, 4vh, 40px) 0;
+  }
+
+  &__link {
+    display: block;
+    border-bottom: 1px solid var(--line-on-b);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+
+  &__mask {
+    display: block;
+    overflow: hidden;
+  }
+
+  &__line {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr) auto 22px;
+    align-items: center;
+    gap: 12px;
+    padding: clamp(10px, 2vh, 18px) 0;
+    will-change: transform;
+  }
+
+  &__n {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.55;
+    align-self: start;
+    padding-top: 0.6em;
+  }
+
+  &__label {
+    @include m.giant-type;
+    font-size: clamp(52px, 15vw, 104px);
+    line-height: 0.88;
+    transition: transform 0.5s v.$ease-out-soft;
+  }
+
+  &__meta {
+    font-size: 12px;
+    opacity: 0.7;
+    text-align: right;
+    white-space: nowrap;
+
+    .serif-line {
+      font-size: 15px;
+      opacity: 1;
+    }
+  }
+
+  &__arrow {
+    justify-self: end;
+    font-size: 18px;
+    transition: transform 0.4s v.$ease-cinematic;
+  }
+
+  // Touch has no hover, so the pressed state carries the feedback.
+  &__link:is(:hover, :active, :focus-visible) &__label {
+    transform: translateX(12px);
+  }
+
+  &__link:is(:hover, :active, :focus-visible) &__arrow {
+    transform: rotate(45deg);
+  }
+
+  &__nav:has(.menu__link:is(:hover, :active, :focus-visible)) .menu__link:not(:hover, :active, :focus-visible) {
+    opacity: 0.4;
+  }
+
+  &__link {
+    transition: opacity 0.3s ease;
+  }
+
+  &__link.is-current &__label {
+    font-family: v.$font-serif;
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: -0.03em;
+  }
+
+  &__foot {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    // Ring gap of the active swatch matches this dark layer, not --sa.
+    .palette-swatches__dot.is-active {
+      box-shadow: 0 0 0 2px var(--sb), 0 0 0 3px currentColor;
+    }
+
+    .palette-swatches__dot {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  &__divider {
+    width: 1px;
+    height: 18px;
+    background: var(--line-on-b);
+    margin: 0 4px;
+  }
+
+  &__mail {
+    display: inline-flex;
+    align-self: flex-start;
+    gap: 8px;
+    max-width: 100%;
+    font-size: clamp(15px, 4.4vw, 20px);
+    font-weight: 600;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 4px;
+    overflow-wrap: anywhere;
+  }
+
+  &__tag {
+    font-size: 15px;
+    opacity: 0.7;
+  }
+}
+
+// Short landscape phones: tighter rows so everything still fits.
+@media (max-height: 520px) {
+  .menu__label {
+    font-size: clamp(36px, 9vh, 56px);
+  }
+
+  .menu__tag {
+    display: none;
+  }
+}

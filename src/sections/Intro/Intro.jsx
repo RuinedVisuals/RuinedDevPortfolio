@@ -1,4 +1,5 @@
 import SplitReveal from '../../components/SplitReveal/SplitReveal';
+import Pattern from '../../components/Pattern/Pattern';
 import './intro.scss';
 
 const services = [
@@ -22,6 +23,7 @@ const services = [
 export default function Intro() {
   return (
     <section className="intro">
+      <Pattern type="ascii" transparent alpha={0.22} cell={13} className="pattern intro__pattern" />
       <div className="intro__head">
         <SplitReveal as="h2" type="lines" className="intro__title">
           Creative thinking.

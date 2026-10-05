@@ -2,6 +2,8 @@
 @use '../styles/abstracts/variables' as v;
 
 .contact-page {
+  position: relative;
+  overflow: hidden;
   background: var(--surface-a);
   color: var(--ink-on-a);
   min-height: 100svh;
@@ -10,58 +12,76 @@
   justify-content: center;
   padding: calc(var(--header-h) + clamp(24px, 6vw, 56px)) v.$gutter clamp(60px, 8vw, 100px);
 
+  &__pattern {
+    mask-image: radial-gradient(ellipse at 75% 50%, #000 0%, transparent 70%);
+  }
+
   .eyebrow {
     margin-bottom: 16px;
   }
 
   &__title {
     @include m.giant-type;
-    font-size: clamp(40px, 8vw, 100px);
+    font-size: clamp(56px, 11vw, 180px);
+    margin-bottom: clamp(24px, 4vw, 40px);
+  }
+
+  &__lead {
+    max-width: 520px;
+    font-size: clamp(16px, 1.8vw, 20px);
+    line-height: 1.5;
     margin-bottom: clamp(32px, 5vw, 56px);
   }
 
-  &__form {
+  &__links {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
-    max-width: 560px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 
-    label {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+  // Pill variant of MagneticButton.
+  &__link.magnetic {
+    gap: 12px;
+    padding: 16px 26px;
+    border: 1px solid currentColor;
+    border-radius: var(--radius-pill);
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    max-width: 100%;
+    transition: background 0.3s ease, color 0.3s ease;
+
+    .magnetic__inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
     }
 
-    input,
-    textarea {
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid var(--line-on-a);
-      color: var(--ink-on-a);
-      padding: 10px 0;
-      font-size: 16px;
-      text-transform: none;
-      letter-spacing: normal;
-      resize: none;
-
-      &:focus {
-        outline: none;
-        border-color: var(--ink-on-a);
-      }
+    &:hover {
+      background: var(--ia);
+      color: var(--sa);
     }
   }
 
-  &__submit {
-    align-self: flex-start;
-    margin-top: 8px;
-    color: var(--ink-on-a);
+  &__detail {
+    font-weight: 500;
+    opacity: 0.7;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  &__sent {
-    font-size: clamp(18px, 2vw, 24px);
-    max-width: 480px;
+  &__foot {
+    position: absolute;
+    left: v.$gutter;
+    right: v.$gutter;
+    bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 }

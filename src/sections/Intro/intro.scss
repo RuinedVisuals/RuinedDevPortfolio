@@ -5,6 +5,19 @@
   background: var(--surface-a);
   color: var(--ink-on-a);
   padding: clamp(56px, 8vw, 110px) v.$gutter;
+  position: relative;
+  overflow: hidden;
+
+  &__pattern {
+    left: auto;
+    width: 60%;
+    mask-image: linear-gradient(to left, #000 10%, transparent 85%);
+  }
+
+  &__head,
+  &__list {
+    position: relative;
+  }
 
   &__head {
     display: flex;

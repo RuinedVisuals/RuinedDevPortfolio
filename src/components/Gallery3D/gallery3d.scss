@@ -1,0 +1,126 @@
+@use '../../styles/abstracts/mixins' as m;
+@use '../../styles/abstracts/variables' as v;
+
+.gallery3d {
+  position: relative;
+  width: 100%;
+  height: clamp(520px, 78vh, 820px);
+  touch-action: pan-y;
+  @include m.no-select;
+}
+
+// Ring / Arc / Pile segmented control.
+.mode-switch {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line-on-b);
+  border-radius: var(--radius-pill);
+
+  button {
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ib);
+    transition: background 0.3s ease, color 0.3s ease;
+
+    &.is-active {
+      background: var(--ib);
+      color: var(--sb);
+    }
+  }
+}
+
+// Center DOM card shown in the Pile layout.
+.pile-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(200px, 20vw, 280px);
+  aspect-ratio: 1;
+  background: var(--sb);
+  border: 1px solid var(--line-on-b);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+
+  &__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  &__title {
+    @include m.display-type;
+    font-size: clamp(24px, 2.4vw, 34px);
+  }
+
+  &__count {
+    font-size: 12px;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 3px;
+  }
+}
+
+// Caption + prev/next row under the stage.
+.gallery-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: clamp(20px, 3vw, 32px);
+
+  &__title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ib);
+  }
+
+  &__sub {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 2px;
+  }
+}
+
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+
+  &__arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line-on-b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background: var(--ib);
+      color: var(--sb);
+    }
+  }
+
+  &__count {
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+}

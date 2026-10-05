@@ -16,6 +16,11 @@
     min-height: 80svh;
   }
 
+  > :not(.pattern, .hero__waves) {
+    position: relative;
+    z-index: 1;
+  }
+
   &__eyebrow {
     margin-bottom: clamp(16px, 3vw, 28px);
   }

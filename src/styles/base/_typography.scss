@@ -33,3 +33,12 @@ h4 {
 .split-char {
   will-change: transform;
 }
+
+// Outlined tag (services, toolbox).
+.pill {
+  padding: 8px 14px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 500;
+}

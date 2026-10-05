@@ -1,18 +1,20 @@
+// Route transition curtain (see CurtainTransition): two stacked
+// full-viewport layers that sweep up over the page and on off the top.
 .curtain {
   position: fixed;
   inset: 0;
   z-index: 900;
   pointer-events: none;
-  display: flex;
 
   &__panel {
-    flex: 1;
-    height: 100%;
-    background: var(--black);
+    position: absolute;
+    inset: 0;
+    background: var(--sb);
     transform: translateY(100%);
 
-    &:nth-child(even) {
-      background: var(--red);
+    & + & {
+      z-index: 1;
+      background: var(--sa);
     }
   }
 }

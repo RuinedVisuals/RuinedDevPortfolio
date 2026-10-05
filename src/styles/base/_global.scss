@@ -7,14 +7,21 @@
   --black: #{v.$color-black};
   --cream: #{v.$color-cream};
 
+  // ---- palette (overwritten at runtime by ThemeContext / lib/palettes) ----
+  // sa/sb = surface a/b, ia/ib = ink on a/b. Defaults = Signal palette,
+  // reversed (matches DEFAULT_REVERSED, so there's no flash before JS).
+  --sa: #{v.$color-black};
+  --sb: #{v.$color-red};
+  --ia: #{v.$color-red};
+  --ib: #{v.$color-black};
+
   // ---- semantic roles ----
-  // Default scheme: red canvas / black ink (as in the reference design)
-  --surface-a: var(--red); // primary section background
-  --surface-b: var(--black); // secondary section background
-  --ink-on-a: var(--black); // text sitting on surface-a
-  --ink-on-b: var(--red); // text/accents sitting on surface-b
-  --line-on-a: rgba(10, 10, 10, 0.35);
-  --line-on-b: rgba(255, 43, 22, 0.35);
+  --surface-a: var(--sa); // primary section background
+  --surface-b: var(--sb); // secondary section background
+  --ink-on-a: var(--ia); // text sitting on surface-a
+  --ink-on-b: var(--ib); // text/accents sitting on surface-b
+  --line-on-a: color-mix(in srgb, var(--ia) 35%, transparent);
+  --line-on-b: color-mix(in srgb, var(--ib) 35%, transparent);
 
   --cursor-mix: var(--black);
 
@@ -22,15 +29,13 @@
   --header-h: clamp(40px, 8vw, 50px);
 }
 
-// Global color switch: flips which hue is "canvas" vs "ink" across the
-// whole site. Toggle by adding [data-theme='reversed'] to <html>.
-html[data-theme='reversed'] {
-  --surface-a: var(--black);
-  --surface-b: var(--red);
-  --ink-on-a: var(--red);
-  --ink-on-b: var(--black);
-  --line-on-a: rgba(255, 43, 22, 0.35);
-  --line-on-b: rgba(10, 10, 10, 0.35);
+// No-JS fallback for the reverse switch; at runtime the inline vars set by
+// ThemeContext win.
+html[data-theme='default'] {
+  --sa: #{v.$color-red};
+  --sb: #{v.$color-black};
+  --ia: #{v.$color-black};
+  --ib: #{v.$color-red};
 }
 
 html {
@@ -68,6 +73,40 @@ html.lenis body {
 .page-content {
   position: relative;
   z-index: 2;
+}
+
+// Palette / reverse switch wipe (see ThemeContext).
+.theme-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+
+  &__panel {
+    position: absolute;
+    inset: 0;
+    transform: translateY(100%);
+
+    & + & {
+      z-index: 1;
+    }
+  }
+}
+
+// Absolutely-filled generative background canvas (see components/Pattern).
+.pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+// Content layered above a .pattern background.
+.above-pattern {
+  position: relative;
+  z-index: 1;
 }
 
 // hide native cursor once custom cursor is active (desktop, fine pointer only)

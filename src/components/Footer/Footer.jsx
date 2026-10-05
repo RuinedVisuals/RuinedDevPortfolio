@@ -1,8 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import MagneticButton from '../MagneticButton/MagneticButton';
 import { projects } from '../../data/projects';
+import { useTheme } from '../../context/ThemeContext';
+import { getPosterURLs } from '../../lib/posters';
 import './footer.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,7 +13,7 @@ const NUM_COLUMNS = 3;
 const GRID_SIZE = 12;
 // Cycle the real project shots to fill the grid, so this finale doubles as a
 // last look at the work rather than needing its own dedicated photo set.
-const gridImages = Array.from({ length: GRID_SIZE }, (_, i) => projects[i % projects.length]);
+const gridIndices = Array.from({ length: GRID_SIZE }, (_, i) => i % projects.length);
 
 /**
  * Adapted from Codrops' "Sticky Grid Scroll" (Theo Plawinski, MIT) — a tall
@@ -28,6 +30,17 @@ export default function Footer({ ready = true }) {
   const buttonWrapRef = useRef(null);
   const gridRef = useRef(null);
   const itemRefs = useRef([]);
+  const { colors } = useTheme();
+  const [posters, setPosters] = useState([]);
+
+  // Duotone posters — generative until a project has its own `image`.
+  useEffect(() => {
+    let dead = false;
+    getPosterURLs(colors).then((urls) => !dead && setPosters(urls));
+    return () => {
+      dead = true;
+    };
+  }, [colors]);
 
   useEffect(() => {
     // Footer stays mounted for the app's whole lifetime (it's outside the
@@ -146,13 +159,13 @@ export default function Footer({ ready = true }) {
     <footer className="site-footer" id="contact" ref={footerRef}>
       <div className="site-footer__wrapper" ref={wrapperRef}>
         <ul className="site-footer__grid" ref={gridRef}>
-          {gridImages.map((p, i) => (
-            <li key={`${p.slug}-${i}`} className="site-footer__item" ref={(el) => (itemRefs.current[i] = el)}>
+          {gridIndices.map((pi, i) => (
+            <li key={`${projects[pi].slug}-${i}`} className="site-footer__item" ref={(el) => (itemRefs.current[i] = el)}>
               <div
                 className="site-footer__item-image"
                 style={{
-                  backgroundColor: p.color,
-                  backgroundImage: p.image ? `url(${p.image})` : undefined,
+                  backgroundColor: projects[pi].color,
+                  backgroundImage: posters[pi] ? `url(${posters[pi]})` : undefined,
                 }}
               />
             </li>

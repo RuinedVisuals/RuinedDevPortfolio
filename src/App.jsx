@@ -30,27 +30,30 @@ export default function App() {
             animate on a fresh load (only on later in-app navigations, which
             mount pages after loading is already false). */}
         {!loading && (
-          // Stacked above the footer so its own scroll-in parallax slides in
-          // underneath the page instead of visually covering it.
-          <div className="page-content">
-            <Header />
-
-            <CurtainTransition>
-              {(location) => (
-                <Routes location={location}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/work" element={<Work />} />
-                  <Route path="/work/:slug" element={<ProjectDetail />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="*" element={<Home />} />
-                </Routes>
-              )}
-            </CurtainTransition>
-          </div>
+          <CurtainTransition>
+            {(location) => (
+              <>
+                {/* Stacked above the footer so its own scroll-in parallax
+                    slides in underneath the page instead of covering it. */}
+                <div className="page-content">
+                  <Header />
+                  <Routes location={location}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/work" element={<Work />} />
+                    <Route path="/work/:slug" element={<ProjectDetail />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="*" element={<Home />} />
+                  </Routes>
+                </div>
+                {/* Only Home closes on the sticky grid footer; inner pages
+                    render their own CtaFooter. Keyed off the *displayed*
+                    location so it swaps behind the curtain, not on click. */}
+                {location.pathname === '/' && <Footer ready={!loading} />}
+              </>
+            )}
+          </CurtainTransition>
         )}
-
-        <Footer ready={!loading} />
       </div>
     </ThemeProvider>
   );

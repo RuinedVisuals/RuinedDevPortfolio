@@ -58,6 +58,7 @@
     justify-content: center;
     text-align: center;
     padding: 0 v.$gutter;
+    pointer-events: none;
   }
 
   &__eyebrow {
@@ -80,6 +81,7 @@
 
   &__button-wrap {
     margin-top: clamp(24px, 3.4vw, 36px);
+    pointer-events: auto;
   }
 
   &__link {

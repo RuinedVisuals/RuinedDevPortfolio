@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import SplitReveal from '../../components/SplitReveal/SplitReveal';
 import MagneticButton from '../../components/MagneticButton/MagneticButton';
+import Pattern from '../../components/Pattern/Pattern';
 import { useMagneticChars } from '../../hooks/useMagneticChars';
 import './hero.scss';
 
@@ -98,6 +99,7 @@ export default function Hero() {
 
   return (
     <section className="hero" ref={heroRef}>
+      <Pattern type="flow" transparent alpha={0.32} />
       <p ref={eyebrowRef} className="eyebrow hero__eyebrow">
         Independent design &amp; development / Athens, GR
       </p>

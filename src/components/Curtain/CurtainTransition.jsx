@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { getLenis } from '../../hooks/useLenis';
+import { EASE_CINEMATIC } from '../../lib/ease';
 import './curtain.scss';
 
 /**
@@ -18,7 +19,7 @@ import './curtain.scss';
  * Usage: wrap <Routes location={displayLocation}>…</Routes> via the render
  * prop so the previous page stays mounted until the curtain fully covers.
  */
-export default function CurtainTransition({ children, panels = 2 }) {
+export default function CurtainTransition({ children }) {
   const location = useLocation();
   const [displayLocation, setDisplayLocation] = useState(location);
   const displayLocationRef = useRef(displayLocation);
@@ -33,7 +34,7 @@ export default function CurtainTransition({ children, panels = 2 }) {
     document.body.classList.add('is-transitioning');
 
     const tl = gsap.timeline({
-      defaults: { ease: 'expo.inOut' },
+      defaults: { ease: EASE_CINEMATIC },
       onComplete: () => {
         document.body.classList.remove('is-transitioning');
         lenis?.start();
@@ -54,7 +55,8 @@ export default function CurtainTransition({ children, panels = 2 }) {
         displayLocationRef.current = location;
         setDisplayLocation(location);
       })
-      .to(panelsEls, { yPercent: -100, duration: 0.65, stagger: 0.05, delay: 0.08 });
+      // Leaves top layer first (--sa), uncovering the --sb one beneath it.
+      .to([...panelsEls].reverse(), { yPercent: -100, duration: 0.65, stagger: 0.05, delay: 0.08 });
 
     return () => {
       tl.kill();
@@ -71,9 +73,9 @@ export default function CurtainTransition({ children, panels = 2 }) {
   return (
     <>
       <div className="curtain" aria-hidden="true">
-        {Array.from({ length: panels }).map((_, i) => (
-          <div key={i} ref={(el) => (panelRefs.current[i] = el)} className="curtain__panel" />
-        ))}
+        {/* Two full-viewport layers: --sb underneath, --sa on top. */}
+        <div ref={(el) => (panelRefs.current[0] = el)} className="curtain__panel" />
+        <div ref={(el) => (panelRefs.current[1] = el)} className="curtain__panel" />
       </div>
       {children(displayLocation)}
     </>

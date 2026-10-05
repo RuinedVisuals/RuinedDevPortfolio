@@ -1,24 +1,20 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCoverflow, Keyboard, A11y } from 'swiper/modules';
+import { Link, useNavigate } from 'react-router-dom';
 import SplitReveal from '../../components/SplitReveal/SplitReveal';
 import MagneticButton from '../../components/MagneticButton/MagneticButton';
+import Gallery3D from '../../components/Gallery3D/Gallery3D';
+import { GALLERY_MODES } from '../../lib/gallery3d';
 import { projects } from '../../data/projects';
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
 import './work-slider.scss';
 
-// Swiper's loop mode needs more real slides than fit on screen at once, or it
-// silently refuses to loop — so we repeat the project list a few times and
-// map the reported index back onto the real project with modulo.
-const LOOP_REPEATS = 3;
-const loopedProjects = Array.from({ length: LOOP_REPEATS }, () => projects).flat();
+const pad = (n) => String(n).padStart(2, '0');
 
 export default function WorkSlider() {
-  const swiperRef = useRef(null);
-  const initialSlide = projects.length + Math.floor(projects.length / 2);
-  const [active, setActive] = useState(Math.floor(projects.length / 2));
+  const galleryRef = useRef(null);
+  const navigate = useNavigate();
+  const [mode, setMode] = useState('ring');
+  const [active, setActive] = useState(0);
+  const project = projects[active];
 
   return (
     <section className="work-slider" id="work">
@@ -29,77 +25,65 @@ export default function WorkSlider() {
         </SplitReveal>
       </div>
 
-      <Swiper
-        modules={[EffectCoverflow, Keyboard, A11y]}
-        onSwiper={(s) => {
-          swiperRef.current = s;
-          setActive(s.realIndex % projects.length);
-        }}
-        onSlideChange={(s) => setActive(s.realIndex % projects.length)}
-        effect="coverflow"
-        centeredSlides
-        slidesPerView="auto"
-        loop
-        loopAdditionalSlides={3}
-        initialSlide={initialSlide}
-        keyboard={{ enabled: true }}
-        grabCursor
-        speed={650}
-        coverflowEffect={{
-          rotate: 34,
-          depth: 260,
-          stretch: -20,
-          modifier: 1,
-          slideShadows: false,
-        }}
-        className="work-slider__swiper"
-      >
-        {loopedProjects.map((p, i) => (
-          <SwiperSlide key={`${p.slug}-${i}`} className="work-card">
-            <Link to={`/work/${p.slug}`} data-cursor="View" className="work-card__link">
-              <div
-                className="work-card__poster"
-                style={{
-                  backgroundColor: p.color,
-                  backgroundImage: p.image ? `url(${p.image})` : undefined,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              >
-                <div className="work-card__top">
-                  <span className="work-card__logo">{p.name}</span>
-                </div>
-                <div className="work-card__bottom">
-                  <p className="work-card__tagline">{p.tagline}</p>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-
-      <div className="work-slider__caption">
-        <span className="work-slider__caption-title">{projects[active].name}</span>
-        <span className="work-slider__caption-sub">{projects[active].category}</span>
+      <div className="work-slider__bar">
+        <span className="eyebrow work-slider__hint">Drag to explore — click to open</span>
+        <div className="mode-switch" role="group" aria-label="Gallery layout">
+          {Object.entries(GALLERY_MODES).map(([key, m]) => (
+            <button
+              key={key}
+              type="button"
+              className={mode === key ? 'is-active' : ''}
+              aria-pressed={mode === key}
+              data-cursor={m.label}
+              onClick={() => setMode(key)}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="work-slider__controls">
+      <Gallery3D
+        ref={galleryRef}
+        mode={mode}
+        onActive={setActive}
+        onOpen={(i) => navigate(`/work/${projects[i].slug}`)}
+      >
+        {mode === 'pile' && (
+          <div className="pile-card">
+            <span className="pile-card__eyebrow">AG. archive</span>
+            <span className="pile-card__title">
+              Selected
+              <br />
+              work
+            </span>
+            <span className="pile-card__count">{pad(projects.length)} projects</span>
+          </div>
+        )}
+      </Gallery3D>
+
+      <div className="gallery-caption">
+        <span className="gallery-caption__title">{project.name}</span>
+        <span className="gallery-caption__sub">{project.category}</span>
+      </div>
+
+      <div className="gallery-controls">
         <button
           type="button"
-          className="work-slider__arrow"
-          onClick={() => swiperRef.current?.slidePrev()}
+          className="gallery-controls__arrow"
+          onClick={() => galleryRef.current?.step(-1)}
           data-cursor="Prev"
           aria-label="Previous project"
         >
           ←
         </button>
-        <span className="work-slider__count">
-          {String(active + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+        <span className="gallery-controls__count">
+          {pad(active + 1)} / {pad(projects.length)}
         </span>
         <button
           type="button"
-          className="work-slider__arrow"
-          onClick={() => swiperRef.current?.slideNext()}
+          className="gallery-controls__arrow"
+          onClick={() => galleryRef.current?.step(1)}
           data-cursor="Next"
           aria-label="Next project"
         >
