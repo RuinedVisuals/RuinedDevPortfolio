@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { useLenis } from './hooks/useLenis';
@@ -20,6 +21,15 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [loaderDone, setLoaderDone] = useState(false);
   useLenis({ enabled: !loading });
+
+  // Everything that mounted under the loader measured itself while the page
+  // scroll was locked and the shutters were still up (on phones that also
+  // means a different viewport height). Re-measure once it's all clear.
+  useEffect(() => {
+    if (!loaderDone) return undefined;
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(id);
+  }, [loaderDone]);
 
   return (
     <ThemeProvider>
@@ -53,7 +63,7 @@ export default function App() {
                 {/* Only Home closes on the sticky grid footer; inner pages
                     render their own CtaFooter. Keyed off the *displayed*
                     location so it swaps behind the curtain, not on click. */}
-                {location.pathname === '/' && <Footer ready={!loading} />}
+                {location.pathname === '/' && <Footer ready={loaderDone} />}
               </>
             )}
           </CurtainTransition>
