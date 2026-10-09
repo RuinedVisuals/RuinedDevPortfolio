@@ -1,4 +1,5 @@
 import SplitReveal from '../components/SplitReveal/SplitReveal';
+import { usePageMeta } from '../components/Seo/usePageMeta';
 import Arrow from '../components/Arrow/Arrow';
 import MagneticButton from '../components/MagneticButton/MagneticButton';
 import Pattern from '../components/Pattern/Pattern';
@@ -13,6 +14,12 @@ const links = [
 ];
 
 export default function Contact() {
+  usePageMeta({
+    title: 'Contact',
+    description:
+      'Tell me about your project — a launch, a store, or something experimental. I read every message and usually reply within a day.',
+    path: '/contact',
+  });
   return (
     <section className="contact-page">
       <Pattern type="moire" transparent alpha={0.35} className="pattern contact-page__pattern" />

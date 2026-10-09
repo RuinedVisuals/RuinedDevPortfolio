@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { usePageMeta } from '../components/Seo/usePageMeta';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Arrow from '../components/Arrow/Arrow';
@@ -77,6 +78,11 @@ function ProjectDetail({ slug }) {
     return () => window.removeEventListener('mousemove', move);
   }, []);
 
+  usePageMeta({
+    title: project ? `${project.name} — ${project.category}` : 'Project',
+    description: project?.description,
+    path: `/work/${slug}`,
+  });
   const gallery = buildShots(project?.shots);
   // Cells drift at slightly different speeds as they scroll through.
   const galleryRef = useRef(null);

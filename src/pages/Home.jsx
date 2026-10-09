@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { usePageMeta } from '../components/Seo/usePageMeta';
 import { useLocation } from 'react-router-dom';
 import Hero from '../sections/Hero/Hero';
 import WorkSlider from '../sections/WorkSlider/WorkSlider';
@@ -8,6 +9,12 @@ import Process from '../sections/Process/Process';
 import { getLenis } from '../hooks/useLenis';
 
 export default function Home() {
+  usePageMeta({
+    title: null,
+    description:
+      'Independent creative developer and UI/UX designer in Athens, GR. Distinctive, fast websites and e-commerce — designed and built end to end.',
+    path: '/',
+  });
   const { hash, key } = useLocation();
 
   // Header links like "/#lab": scroll once the section exists. Arriving from

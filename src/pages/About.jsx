@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { usePageMeta } from '../components/Seo/usePageMeta';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
@@ -27,6 +28,12 @@ const STACK = ['React', 'GSAP', 'Three.js', 'WebGL', 'Lenis', 'SCSS', 'Vite', 'E
 const PORTRAIT = '/images/about/portrait.jpg';
 
 export default function About() {
+  usePageMeta({
+    title: 'About',
+    description:
+      'Apostolis — independent creative developer and UI/UX designer in Athens. I design and build distinctive, fast, intuitive websites and e-commerce stores.',
+    path: '/about',
+  });
   const manifestoRef = useRef(null);
   const [hasPortrait, setHasPortrait] = useState(true);
 

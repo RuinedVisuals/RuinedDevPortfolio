@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
+import { usePageMeta } from '../components/Seo/usePageMeta';
 import Arrow from '../components/Arrow/Arrow';
 import { Link, useNavigate } from 'react-router-dom';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
@@ -19,6 +20,12 @@ const FILTERS = ['All', ...TAGS.filter((t) => countFor(t) > 0)];
 const years = projects.map((p) => +p.year);
 
 export default function Work() {
+  usePageMeta({
+    title: 'Selected work',
+    description:
+      'Websites and e-commerce stores for villas, studios, artists and brands — designed and built by an independent creative developer in Athens.',
+    path: '/work',
+  });
   const navigate = useNavigate();
   const galleryRef = useRef(null);
   const [filter, setFilter] = useState('All');
