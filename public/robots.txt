@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://apostolisgkanatsios.com/sitemap.xml
+Sitemap: https://weareruined.com/sitemap.xml
