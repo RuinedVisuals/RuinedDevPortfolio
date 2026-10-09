@@ -14,6 +14,10 @@ import ProjectDetail from './pages/ProjectDetail';
 import About from './pages/About';
 import Contact from './pages/Contact';
 
+// Phones resize the viewport as the URL bar collapses mid-scroll; without this
+// every one of those triggers a full re-measure and the pinned footer jumps.
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 export default function App() {
   // `loading` flips when the loader's shutters start to open (the site mounts
   // underneath so the hero reveal plays as they part); `loaderDone` removes
@@ -23,12 +27,28 @@ export default function App() {
   useLenis({ enabled: !loading });
 
   // Everything that mounted under the loader measured itself while the page
-  // scroll was locked and the shutters were still up (on phones that also
-  // means a different viewport height). Re-measure once it's all clear.
+  // scroll was locked and the shutters were still up. On a real phone the page
+  // also keeps growing afterwards (fonts, canvases, images), which leaves the
+  // scroll-scrubbed footer out of step with where it really sits. So re-measure
+  // once the loader is clear, and again whenever the document height changes.
   useEffect(() => {
     if (!loaderDone) return undefined;
+    let timer = 0;
+    const refresh = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+    };
     const id = requestAnimationFrame(() => ScrollTrigger.refresh());
-    return () => cancelAnimationFrame(id);
+    const ro = new ResizeObserver(refresh);
+    ro.observe(document.body);
+    window.addEventListener('load', refresh);
+    document.fonts?.ready.then(refresh);
+    return () => {
+      cancelAnimationFrame(id);
+      window.clearTimeout(timer);
+      ro.disconnect();
+      window.removeEventListener('load', refresh);
+    };
   }, [loaderDone]);
 
   return (
