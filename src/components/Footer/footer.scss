@@ -4,17 +4,19 @@
 .site-footer {
   position: relative;
   z-index: 1;
-  height: 350vh;
-  height: 350svh;
   background: var(--surface-b);
   color: var(--ink-on-b);
 
   &__wrapper {
-    position: sticky;
-    top: 0;
+    position: relative;
     height: 100vh;
     height: 100svh;
     overflow: hidden;
+  }
+
+  &__inner {
+    position: absolute;
+    inset: 0;
     will-change: transform;
   }
 
@@ -121,6 +123,10 @@
 @media (prefers-reduced-motion: reduce) {
   .site-footer {
     height: auto;
+
+    &__inner {
+      position: static;
+    }
 
     &__wrapper {
       position: static;

@@ -25,6 +25,7 @@ const gridIndices = Array.from({ length: GRID_SIZE }, (_, i) => i % projects.len
 export default function Footer({ ready = true }) {
   const footerRef = useRef(null);
   const wrapperRef = useRef(null);
+  const innerRef = useRef(null);
   const contentRef = useRef(null);
   const titleRef = useRef(null);
   const descRef = useRef(null);
@@ -71,7 +72,9 @@ export default function Footer({ ready = true }) {
       gsap.set(titleRef.current, { yPercent: titleOffsetY });
       gsap.set([descRef.current, buttonWrapRef.current], { opacity: 0, pointerEvents: 'none' });
 
-      gsap.from(wrapperRef.current, {
+      // Slide-in runs on the inner layer: the wrapper itself is pinned below,
+      // and a transform on a pinned element fights the pin.
+      gsap.from(innerRef.current, {
         yPercent: -100,
         ease: 'none',
         scrollTrigger: {
@@ -80,6 +83,19 @@ export default function Footer({ ready = true }) {
           end: 'top top',
           scrub: true,
         },
+      });
+
+      // Pinned by ScrollTrigger (position: fixed + spacer) rather than CSS
+      // `position: sticky`, which silently fails to hold on some real phones.
+      // Created before the scrub timeline so the spacer exists when that
+      // timeline measures the footer's bottom.
+      ScrollTrigger.create({
+        trigger: footerRef.current,
+        start: 'top top',
+        end: () => `+=${Math.round(window.innerHeight * 2.5)}`,
+        pin: wrapperRef.current,
+        pinSpacing: true,
+        invalidateOnRefresh: true,
       });
 
       function gridRevealTimeline() {
@@ -167,6 +183,7 @@ export default function Footer({ ready = true }) {
   return (
     <footer className="site-footer" id="contact" ref={footerRef}>
       <div className="site-footer__wrapper" ref={wrapperRef}>
+        <div className="site-footer__inner" ref={innerRef}>
         <ul className="site-footer__grid" ref={gridRef}>
           {gridIndices.map((pi, i) => (
             <li key={`${projects[pi].slug}-${i}`} className="site-footer__item" ref={(el) => (itemRefs.current[i] = el)}>
@@ -194,6 +211,7 @@ export default function Footer({ ready = true }) {
               Contact <Arrow className="arrow" />
             </MagneticButton>
           </div>
+        </div>
         </div>
       </div>
     </footer>
