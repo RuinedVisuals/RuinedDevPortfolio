@@ -12,6 +12,7 @@
   transition: background 0.4s v.$ease-cinematic, color 0.4s v.$ease-cinematic;
   max-width: 100%;
   margin: 0 auto;
+  padding-top: 10px;
   @include m.mobile {
     padding: 0 v.$gutter;
   }
@@ -33,19 +34,36 @@
     @include m.container;
     height: var(--header-h);
     display: flex;
+
+    // Breathing room around the larger mobile logo.
+    @include m.mobile {
+      height: 68px;
+    }
+
     align-items: center;
     justify-content: space-between;
   }
 
   &__logo {
-    font-family: v.$font-display;
-    font-size: 22px;
+    display: inline-flex;
     color: inherit;
+  }
+
+  &__logo-mark {
+    display: block;
+    height: clamp(26px, 3.2vw, 50px);
+    width: auto;
+    aspect-ratio: 499.98 / 453.33;
+
+    @include m.mobile {
+      height: 36px;
+    }
   }
 
   &__nav {
     display: flex;
     gap: clamp(20px, 3vw, 40px);
+    transition: opacity 0.3s ease;
 
     @include m.tablet {
       display: none;
@@ -55,13 +73,18 @@
   &__link {
     color: inherit;
     border-bottom: none;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
 
     .arrow {
       font-size: 12px;
       opacity: 0.7;
     }
+  }
+
+  &.is-menu-open &__nav {
+    opacity: 0;
+    pointer-events: none;
   }
 
   &__right {
@@ -83,11 +106,8 @@
   width: 28px;
   height: 16px;
   position: relative;
-  display: none;
-
-  @include m.tablet {
-    display: block;
-  }
+  display: block;
+  flex: none;
 
   span {
     position: absolute;

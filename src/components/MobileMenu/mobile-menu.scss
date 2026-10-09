@@ -105,6 +105,17 @@
     opacity: 0.6;
   }
 
+  &__body {
+    flex: 1;
+    display: flex;
+    gap: clamp(32px, 5vw, 96px);
+    min-height: 0;
+  }
+
+  &__aside {
+    display: none;
+  }
+
   &__nav {
     flex: 1;
     display: flex;
@@ -234,7 +245,7 @@
   }
 
   &__tag {
-    font-size: 15px;
+    font-size: 17px;
     opacity: 0.7;
   }
 }
@@ -246,6 +257,96 @@
   }
 
   .menu__tag {
+    display: none;
+  }
+}
+
+// Desktop: links on the left, a poster + project list on the right.
+@media (min-width: 901px) {
+  .menu {
+    &__label {
+      font-size: clamp(56px, min(9vw, 12vh), 150px);
+    }
+
+    &__line {
+      grid-template-columns: 40px minmax(0, 1fr) auto 28px;
+    }
+
+    &__nav {
+      flex: 1.5;
+      justify-content: safe center;
+    }
+
+    &__aside {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      max-width: 440px;
+      padding: clamp(16px, 4vh, 40px) 0;
+    }
+
+    &__poster {
+      position: relative;
+      aspect-ratio: 512 / 704;
+      height: min(28vh, 320px);
+      flex: none;
+      border-radius: 8px;
+      overflow: hidden;
+      align-self: flex-start;
+    }
+
+    &__poster-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 0.5s ease, transform 0.9s v.$ease-out-soft;
+
+      &.is-active {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    &__projects {
+      border-top: 1px solid var(--line-on-b);
+    }
+
+    &__project {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line-on-b);
+      font-size: 16px;
+      font-weight: 600;
+      opacity: 0.55;
+      transition: opacity 0.3s ease, padding-left 0.35s v.$ease-cinematic;
+      outline: none;
+
+      &.is-active {
+        opacity: 1;
+        padding-left: 8px;
+      }
+    }
+
+    &__project-n,
+    &__project-year {
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+  }
+}
+
+// Short desktop windows: drop the poster so the list always fits.
+@media (min-width: 901px) and (max-height: 760px) {
+  .menu__poster {
     display: none;
   }
 }

@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import Arrow from '../../components/Arrow/Arrow';
 import { Link, useNavigate } from 'react-router-dom';
 import SplitReveal from '../../components/SplitReveal/SplitReveal';
 import MagneticButton from '../../components/MagneticButton/MagneticButton';
@@ -75,7 +76,7 @@ export default function WorkSlider() {
           data-cursor="Prev"
           aria-label="Previous project"
         >
-          ←
+          <Arrow dir="left" />
         </button>
         <span className="gallery-controls__count">
           {pad(active + 1)} / {pad(projects.length)}
@@ -87,13 +88,13 @@ export default function WorkSlider() {
           data-cursor="Next"
           aria-label="Next project"
         >
-          →
+          <Arrow dir="right" />
         </button>
       </div>
 
       <div className="work-slider__foot">
         <MagneticButton as={Link} to="/work" cursorLabel="See all">
-          View all work <span className="arrow">↗</span>
+          View all work <Arrow className="arrow" />
         </MagneticButton>
       </div>
     </section>

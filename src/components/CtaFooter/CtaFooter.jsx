@@ -1,4 +1,5 @@
 import MagneticButton from '../MagneticButton/MagneticButton';
+import Arrow from '../Arrow/Arrow';
 import Pattern from '../Pattern/Pattern';
 import './cta-footer.scss';
 
@@ -17,7 +18,7 @@ export default function CtaFooter({ description = true, short = false }) {
         )}
         <div className="cta-footer__button-wrap">
           <MagneticButton href="mailto:hello@apostolisgkanatsios.com" cursorLabel="Say hi" className="cta-footer__link">
-            Contact <span className="arrow">↗</span>
+            Contact <Arrow className="arrow" />
           </MagneticButton>
         </div>
       </div>

@@ -1,9 +1,15 @@
 // `tag` drives the Work page filters ('Web' | 'E-commerce' | 'Experimental').
+// `shots` = captures of the live site (public/images/work/<slug>/), shown in
+// browser / phone frames on the project page.
 // `image` is optional — until a real shot exists, a generative poster is
 // drawn in its place (see src/lib/posters.js) and duotoned per palette.
 export const projects = [
   {
     slug: 'rocks-villas',
+    shots: {
+      desktop: ['/images/work/rocks-villas/desktop-1.jpg', '/images/work/rocks-villas/desktop-2.jpg'],
+      mobile: ['/images/work/rocks-villas/mobile-1.jpg', '/images/work/rocks-villas/mobile-2.jpg'],
+    },
     name: 'Rocks Villas',
     tagline: 'Privacy, comfort and authentic island living.',
     category: 'Web design & development',
@@ -19,6 +25,10 @@ export const projects = [
   },
   {
     slug: 'magnetica',
+    shots: {
+      desktop: ['/images/work/magnetica/desktop-1.jpg', '/images/work/magnetica/desktop-2.jpg', '/images/work/magnetica/desktop-3.jpg'],
+      mobile: ['/images/work/magnetica/mobile-1.jpg', '/images/work/magnetica/mobile-2.jpg', '/images/work/magnetica/mobile-3.jpg'],
+    },
     name: 'Magnetica',
     tagline: 'Your moments, in your hands.',
     category: 'E-commerce',
@@ -34,6 +44,10 @@ export const projects = [
   },
   {
     slug: 'michael-mantas',
+    shots: {
+      desktop: ['/images/work/michael-mantas/desktop-1.jpg', '/images/work/michael-mantas/desktop-2.jpg', '/images/work/michael-mantas/desktop-3.jpg'],
+      mobile: ['/images/work/michael-mantas/mobile-1.jpg', '/images/work/michael-mantas/mobile-2.jpg', '/images/work/michael-mantas/mobile-3.jpg'],
+    },
     name: 'Michael Mantas',
     tagline: 'The camera as witness. Between memory and projection.',
     category: 'Artist portfolio',
@@ -49,6 +63,10 @@ export const projects = [
   },
   {
     slug: 'nove-graphics',
+    shots: {
+      desktop: ['/images/work/nove-graphics/desktop-1.jpg', '/images/work/nove-graphics/desktop-2.jpg', '/images/work/nove-graphics/desktop-3.jpg'],
+      mobile: ['/images/work/nove-graphics/mobile-1.jpg', '/images/work/nove-graphics/mobile-2.jpg', '/images/work/nove-graphics/mobile-3.jpg'],
+    },
     name: 'Nove Graphics',
     tagline: 'Digging culture.',
     category: 'Studio portfolio',
@@ -64,6 +82,10 @@ export const projects = [
   },
   {
     slug: 'melina-tsagkataki',
+    shots: {
+      desktop: ['/images/work/melina-tsagkataki/desktop-1.jpg', '/images/work/melina-tsagkataki/desktop-2.jpg', '/images/work/melina-tsagkataki/desktop-3.jpg'],
+      mobile: ['/images/work/melina-tsagkataki/mobile-1.jpg', '/images/work/melina-tsagkataki/mobile-2.jpg', '/images/work/melina-tsagkataki/mobile-3.jpg'],
+    },
     name: 'Melina Tsagkataki',
     tagline: 'Balanced nutrition, without restrictions.',
     category: 'Web design & development',
@@ -79,6 +101,10 @@ export const projects = [
   },
   {
     slug: 'shma',
+    shots: {
+      desktop: ['/images/work/shma/desktop-1.jpg', '/images/work/shma/desktop-2.jpg'],
+      mobile: ['/images/work/shma/mobile-1.jpg', '/images/work/shma/mobile-2.jpg', '/images/work/shma/mobile-3.jpg'],
+    },
     name: 'ΣΗΜΑ',
     tagline: 'Road safety equipment, catalogued.',
     category: 'E-commerce · B2B',

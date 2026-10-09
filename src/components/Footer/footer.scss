@@ -59,6 +59,30 @@
     text-align: center;
     padding: 0 v.$gutter;
     pointer-events: none;
+
+    // Soft scrim so the copy stays legible once the zoomed photo grid
+    // slides underneath it.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(
+        ellipse 70% 42% at 50% 50%,
+        color-mix(in srgb, var(--surface-b) 96%, transparent) 40%,
+        color-mix(in srgb, var(--surface-b) 70%, transparent) 70%,
+        transparent 100%
+      );
+
+      @include m.mobile {
+        background: radial-gradient(
+          ellipse 130% 36% at 50% 50%,
+          color-mix(in srgb, var(--surface-b) 97%, transparent) 45%,
+          color-mix(in srgb, var(--surface-b) 75%, transparent) 75%,
+          transparent 100%
+        );
+      }
+    }
   }
 
   &__eyebrow {
@@ -74,7 +98,7 @@
   &__description {
     max-width: 480px;
     margin-top: clamp(16px, 2.4vw, 24px);
-    font-size: clamp(14px, 1.4vw, 17px);
+    font-size: clamp(16px, 1.5vw, 19px);
     line-height: 1.5;
     opacity: 0.85;
   }

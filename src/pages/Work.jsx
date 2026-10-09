@@ -1,13 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import Arrow from '../components/Arrow/Arrow';
 import { Link, useNavigate } from 'react-router-dom';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
 import MagneticButton from '../components/MagneticButton/MagneticButton';
 import Pattern from '../components/Pattern/Pattern';
 import Gallery3D from '../components/Gallery3D/Gallery3D';
 import CtaFooter from '../components/CtaFooter/CtaFooter';
+import ProjectIndex from '../components/ProjectIndex/ProjectIndex';
 import { GALLERY_MODES } from '../lib/gallery3d';
-import { getPosterURLs } from '../lib/posters';
-import { useTheme } from '../context/ThemeContext';
 import { projects } from '../data/projects';
 import './work.scss';
 
@@ -21,13 +21,9 @@ const years = projects.map((p) => +p.year);
 export default function Work() {
   const navigate = useNavigate();
   const galleryRef = useRef(null);
-  const previewRef = useRef(null);
-  const { colors } = useTheme();
   const [filter, setFilter] = useState('All');
   const [mode, setMode] = useState('arc');
   const [active, setActive] = useState(0);
-  const [hover, setHover] = useState(-1);
-  const [posters, setPosters] = useState([]);
 
   const items = useMemo(
     () => projects.map((_, i) => i).filter((i) => filter === 'All' || projects[i].tag === filter),
@@ -35,40 +31,6 @@ export default function Work() {
   );
   const activeProject = projects[active] || projects[0];
   const filterLabel = filter === 'All' ? 'All work' : filter;
-
-  useEffect(() => {
-    let dead = false;
-    getPosterURLs(colors).then((urls) => !dead && setPosters(urls));
-    return () => {
-      dead = true;
-    };
-  }, [colors]);
-
-  // Hover preview card trails the cursor, tilting with horizontal velocity.
-  useEffect(() => {
-    const el = previewRef.current;
-    if (!el || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
-    const m = { x: 0, y: 0, cx: 0, cy: 0, r: 0 };
-    let raf = 0;
-    const move = (e) => {
-      m.x = e.clientX;
-      m.y = e.clientY;
-    };
-    const loop = () => {
-      const dx = m.x - m.cx;
-      m.cx += dx * 0.14;
-      m.cy += (m.y - m.cy) * 0.14;
-      m.r += (Math.max(-12, Math.min(12, dx * 0.08)) - m.r) * 0.1;
-      el.style.transform = `translate(${m.cx}px,${m.cy}px) translate(-50%,-60%) rotate(${m.r}deg)`;
-      raf = requestAnimationFrame(loop);
-    };
-    window.addEventListener('mousemove', move);
-    raf = requestAnimationFrame(loop);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('mousemove', move);
-    };
-  }, []);
 
   const pickFilter = (f) => {
     setFilter(f);
@@ -160,10 +122,10 @@ export default function Work() {
             data-cursor="Prev"
             aria-label="Previous project"
           >
-            ←
+            <Arrow dir="left" />
           </button>
           <MagneticButton as={Link} to={`/work/${activeProject.slug}`} cursorLabel="Open">
-            Open project <span className="arrow">↗</span>
+            Open project <Arrow className="arrow" />
           </MagneticButton>
           <button
             type="button"
@@ -172,7 +134,7 @@ export default function Work() {
             data-cursor="Next"
             aria-label="Next project"
           >
-            →
+            <Arrow dir="right" />
           </button>
         </div>
       </section>
@@ -185,35 +147,8 @@ export default function Work() {
           </span>
         </div>
 
-        <ul className={`work-page__list ${hover >= 0 ? 'has-hover' : ''}`}>
-          {items.map((i, k) => {
-            const p = projects[i];
-            return (
-              <li
-                key={p.slug}
-                className={`work-page__row ${hover === i ? 'is-hovered' : ''}`}
-                onMouseEnter={() => setHover(i)}
-                onMouseLeave={() => setHover(-1)}
-              >
-                <Link to={`/work/${p.slug}`} className="work-page__row-link" data-cursor="View">
-                  <span className="work-page__row-index">{pad(k + 1)}</span>
-                  <span className="work-page__row-name">{p.name}</span>
-                  <span className="work-page__row-cat">{p.category}</span>
-                  <span className="work-page__row-year">{p.year}</span>
-                  <span className="work-page__row-arrow">↗</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <ProjectIndex items={items} />
       </section>
-
-      <div
-        ref={previewRef}
-        className={`work-preview ${hover >= 0 ? 'is-visible' : ''}`}
-        style={{ backgroundImage: hover >= 0 && posters[hover] ? `url(${posters[hover]})` : 'none' }}
-        aria-hidden="true"
-      />
 
       <CtaFooter />
     </>

@@ -9,8 +9,13 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: calc(var(--header-h) + clamp(24px, 6vw, 56px)) v.$gutter clamp(60px, 8vw, 100px);
+  padding: calc(var(--header-h) + clamp(24px, 6vw, 56px)) v.$gutter clamp(20px, 3vw, 28px);
+
+  // Centers the main block in the free space; the footer line below is in
+  // flow, so on short viewports it pushes down instead of overlapping.
+  > .above-pattern:not(.contact-page__foot) {
+    margin-block: auto;
+  }
 
   &__pattern {
     mask-image: radial-gradient(ellipse at 75% 50%, #000 0%, transparent 70%);
@@ -28,7 +33,7 @@
 
   &__lead {
     max-width: 520px;
-    font-size: clamp(16px, 1.8vw, 20px);
+    font-size: clamp(17px, 1.9vw, 22px);
     line-height: 1.5;
     margin-bottom: clamp(32px, 5vw, 56px);
   }
@@ -72,10 +77,7 @@
   }
 
   &__foot {
-    position: absolute;
-    left: v.$gutter;
-    right: v.$gutter;
-    bottom: 24px;
+    margin-top: clamp(32px, 5vw, 56px);
     display: flex;
     justify-content: space-between;
     gap: 16px;

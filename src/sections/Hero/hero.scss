@@ -16,7 +16,7 @@
     min-height: 80svh;
   }
 
-  > :not(.pattern, .hero__waves) {
+  > :not(.pattern) {
     position: relative;
     z-index: 1;
   }
@@ -57,7 +57,7 @@
   }
 
   &__sub {
-    font-size: clamp(16px, 1.6vw, 19px);
+    font-size: clamp(18px, 1.8vw, 22px);
     font-weight: 500;
     line-height: 1.35;
   }
@@ -67,21 +67,6 @@
 
     .arrow {
       display: inline-block;
-    }
-  }
-
-  &__waves {
-    position: absolute;
-    right: -5%;
-    bottom: -10%;
-    width: min(60vw, 700px);
-    height: 70%;
-    color: var(--ink-on-a);
-    pointer-events: none;
-
-    @include m.tablet {
-      opacity: 0.6;
-      width: 90vw;
     }
   }
 }

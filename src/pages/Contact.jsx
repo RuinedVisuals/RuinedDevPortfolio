@@ -1,4 +1,5 @@
 import SplitReveal from '../components/SplitReveal/SplitReveal';
+import Arrow from '../components/Arrow/Arrow';
 import MagneticButton from '../components/MagneticButton/MagneticButton';
 import Pattern from '../components/Pattern/Pattern';
 import './contact.scss';
@@ -37,7 +38,7 @@ export default function Contact() {
             >
               {l.label}
               {l.detail && <span className="contact-page__detail">{l.detail}</span>}
-              <span className="arrow">↗</span>
+              <Arrow className="arrow" />
             </MagneticButton>
           ))}
         </div>

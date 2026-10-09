@@ -1,3 +1,5 @@
+import Logo from '../Logo/Logo';
+import Arrow from '../Arrow/Arrow';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MagneticButton from '../MagneticButton/MagneticButton';
@@ -8,7 +10,7 @@ import './header.scss';
 
 const links = [
   { label: 'Work', to: '/work' },
-  { label: 'Lab', to: '/#lab' },
+  { label: 'Approach', to: '/#lab' },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ];
@@ -33,14 +35,15 @@ export default function Header() {
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-menu-open' : ''}`}>
       <div className="site-header__row">
         <Link to="/" className="site-header__logo" data-cursor="Home">
-          AG.
+          <Logo className="site-header__logo-mark" />
+          <span className="sr-only">AG.</span>
         </Link>
 
         <nav className="site-header__nav">
           {links.map((l) => (
             <MagneticButton as={Link} to={l.to} key={l.to} className="site-header__link">
               {l.label}
-              <span className="arrow">↗</span>
+              <Arrow className="arrow" />
             </MagneticButton>
           ))}
         </nav>

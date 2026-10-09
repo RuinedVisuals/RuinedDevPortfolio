@@ -76,8 +76,8 @@
     margin: clamp(32px, 5vw, 64px) 0 clamp(32px, 5vw, 56px);
 
     p {
-      max-width: 420px;
-      font-size: 15px;
+      max-width: 460px;
+      font-size: 17px;
       line-height: 1.5;
     }
   }
@@ -142,7 +142,7 @@
   }
 
   &__n {
-    font-size: 13px;
+    font-size: 14px;
     opacity: 0.6;
   }
 
@@ -153,7 +153,7 @@
   }
 
   &__meta {
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.4;
     opacity: 0.7;
   }

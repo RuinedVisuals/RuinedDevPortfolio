@@ -1,58 +1,101 @@
 @use '../../styles/abstracts/mixins' as m;
 
+// Two solid halves form the "shutters"; the content layer sits on top and
+// fades away before they split open to reveal the hero.
 .loader {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: var(--sb);
   color: var(--ib);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(20px, 4vw, 48px);
+  overflow: hidden;
 
-  &__top {
+  &__half {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50.2%; // slight overlap, no hairline between the halves
+    background: var(--sb);
+    will-change: transform;
+
+    &--top {
+      top: 0;
+    }
+    &--bot {
+      bottom: 0;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    inset: 0;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
-    font-size: clamp(20px, 4vw, 32px);
-    font-weight: 700;
+    padding: clamp(20px, 4vw, 48px);
+    will-change: transform, opacity;
   }
 
-  &__mark {
-    letter-spacing: -0.02em;
-  }
-
-  &__count {
-    font-variant-numeric: tabular-nums;
-  }
-
-  &__bar-track {
-    width: 100%;
-    height: 1px;
-    background: rgba(255, 43, 22, 0.25);
-    margin: 24px 0;
-  }
-
-  &__bar-fill {
-    height: 100%;
-    width: 100%;
-    background: var(--ib);
-    transform: scaleX(0);
-    transform-origin: left center;
-  }
-
+  &__top,
   &__bottom {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
     font-size: 12px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    opacity: 0.7;
+    letter-spacing: 0.14em;
+  }
 
-    @include m.mobile {
-      flex-direction: column;
-      gap: 4px;
-    }
+  &__bottom {
+    // room for the progress line beneath
+    padding-bottom: clamp(18px, 2.5vw, 32px);
+  }
+
+  &__mark {
+    position: relative;
+    align-self: center;
+    width: min(22vw, 16vh);
+    aspect-ratio: 499.98 / 453.33;
+    color: var(--ib);
+    will-change: transform, opacity;
+  }
+
+  &__logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__mark-fill {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(100% 0 0 0);
+  }
+
+  &__word {
+    font-size: clamp(14px, 1.6vw, 18px);
+  }
+
+  &__count {
+    @include m.giant-type;
+    font-size: clamp(56px, 11vw, 150px);
+    line-height: 0.8;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__track {
+    position: absolute;
+    left: clamp(20px, 4vw, 48px);
+    right: clamp(20px, 4vw, 48px);
+    bottom: clamp(20px, 4vw, 48px);
+    height: 1px;
+    background: color-mix(in srgb, var(--ib) 25%, transparent);
+  }
+
+  &__line {
+    height: 100%;
+    background: var(--ib);
+    transform: scaleX(0);
+    transform-origin: left center;
   }
 }

@@ -2,10 +2,29 @@ import { useEffect, useRef } from 'react';
 import Pattern from '../../components/Pattern/Pattern';
 import './lab.scss';
 
+// The animated tiles are decoration; the copy under them is the pitch.
 const sketches = [
-  { n: '01', type: 'flow', title: 'Flow field', meta: 'Canvas 2D · noise vectors · cursor swirl', opts: { particles: 700 } },
-  { n: '02', type: 'ascii', title: 'ASCII field', meta: 'Glyph shading · interference · cursor falloff', opts: {} },
-  { n: '03', type: 'moire', title: 'Moiré', meta: 'Two-point ring interference, follows the pointer', opts: {} },
+  {
+    n: '01',
+    type: 'flow',
+    title: 'Stand out',
+    meta: 'A distinctive identity customers remember — not a template your competitors can copy.',
+    opts: { particles: 700 },
+  },
+  {
+    n: '02',
+    type: 'ascii',
+    title: 'Hold attention',
+    meta: 'Purposeful motion and interaction keep visitors exploring and guide them to what matters.',
+    opts: {},
+  },
+  {
+    n: '03',
+    type: 'moire',
+    title: 'Turn visits into business',
+    meta: 'Fast, clear, accessible pages that lead to enquiries, bookings and orders.',
+    opts: {},
+  },
 ];
 
 const ECHOES = [1, 2, 3];
@@ -42,8 +61,8 @@ export default function Lab() {
   return (
     <section className="lab" id="lab">
       <div className="lab__top">
-        <span className="eyebrow">(L) The lab</span>
-        <span className="eyebrow lab__years">Experiments 2024 — 2026</span>
+        <span className="eyebrow">(03) Why it works</span>
+        <span className="eyebrow lab__years">Built to grow your business</span>
       </div>
 
       <div className="lab__echo">
@@ -65,12 +84,12 @@ export default function Lab() {
 
       <div className="lab__intro">
         <p>
-          Where code is the medium, not just the means. Shaders, generative systems and motion studies — the
-          playground that feeds every client build.
+          Your website is the first thing customers judge. Creative development turns it into your best
+          salesperson — memorable at first sight, fast on every device, and built so people take the next step.
         </p>
         <div className="lab__oval">
-          <span className="lab__oval-title">Creative development</span>
-          <span className="lab__oval-meta">WebGL · GLSL · Canvas</span>
+          <span className="lab__oval-title">Design + code</span>
+          <span className="lab__oval-meta">Brand · Motion · Performance</span>
         </div>
       </div>
 

@@ -14,19 +14,23 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 
 export default function App() {
+  // `loading` flips when the loader's shutters start to open (the site mounts
+  // underneath so the hero reveal plays as they part); `loaderDone` removes
+  // the loader once they're fully gone.
   const [loading, setLoading] = useState(true);
+  const [loaderDone, setLoaderDone] = useState(false);
   useLenis({ enabled: !loading });
 
   return (
     <ThemeProvider>
       <Cursor />
-      {loading && <Loader onComplete={() => setLoading(false)} />}
+      {!loaderDone && <Loader onReveal={() => setLoading(false)} onComplete={() => setLoaderDone(true)} />}
 
       <div style={{ visibility: loading ? 'hidden' : 'visible' }}>
         {/* Mounted only once the loader is done, not just hidden underneath
             it — otherwise Hero's entrance timeline and every `immediate`
             SplitReveal fire (and finish) the moment they mount, invisibly,
-            long before the ~3.3s loader clears, so nothing appears to
+            long before the loader clears, so nothing appears to
             animate on a fresh load (only on later in-app navigations, which
             mount pages after loading is already false). */}
         {!loading && (

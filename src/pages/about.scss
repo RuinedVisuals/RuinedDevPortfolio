@@ -32,7 +32,7 @@
 
   &__lead {
     max-width: 620px;
-    font-size: clamp(16px, 1.8vw, 20px);
+    font-size: clamp(17px, 1.9vw, 22px);
     line-height: 1.5;
   }
 }
@@ -183,7 +183,7 @@
   }
 
   &__note {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
     opacity: 0.85;
     max-width: 320px;
@@ -222,47 +222,5 @@
 
   &__tag {
     opacity: 0.6;
-  }
-
-  &__list {
-    border-top: 1px solid var(--line-on-a);
-  }
-
-  &__row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 260px) 60px 30px;
-    align-items: center;
-    gap: 20px;
-    padding: clamp(18px, 2.6vw, 26px) 0;
-    border-bottom: 1px solid var(--line-on-a);
-    transition: opacity 0.3s ease, padding-left 0.35s v.$ease-cinematic;
-
-    &:hover {
-      opacity: 0.6;
-      padding-left: 12px;
-    }
-
-    @include m.tablet {
-      grid-template-columns: minmax(0, 1fr) 26px;
-
-      .about-clients__meta {
-        display: none;
-      }
-    }
-  }
-
-  &__client {
-    font-size: clamp(20px, 2.4vw, 30px);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-
-  &__meta {
-    font-size: 13px;
-    opacity: 0.75;
-  }
-
-  &__arrow {
-    justify-self: end;
   }
 }

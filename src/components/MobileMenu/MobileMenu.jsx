@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Arrow from '../Arrow/Arrow';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
@@ -8,6 +9,8 @@ import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import { getLenis } from '../../hooks/useLenis';
 import { EASE_CINEMATIC } from '../../lib/ease';
 import { projects } from '../../data/projects';
+import { useTheme } from '../../context/ThemeContext';
+import { getPosterURLs } from '../../lib/posters';
 import './mobile-menu.scss';
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -43,6 +46,19 @@ export default function MobileMenu({ open, onClose, links }) {
   const tlRef = useRef(null);
   const [mounted, setMounted] = useState(false); // keeps the pattern alive through the close animation
   const [time, setTime] = useState(athensTime);
+  const { colors } = useTheme();
+  const [posters, setPosters] = useState([]);
+  const [hoverProject, setHoverProject] = useState(0);
+
+  // Duotone posters for the desktop project preview; only fetched while open.
+  useEffect(() => {
+    if (!open) return undefined;
+    let dead = false;
+    getPosterURLs(colors).then((urls) => !dead && setPosters(urls));
+    return () => {
+      dead = true;
+    };
+  }, [open, colors]);
 
   // On open: mount the pattern and refresh the clock (render-phase update,
   // not an effect, so it lands in the same commit as the opening frame).
@@ -100,19 +116,14 @@ export default function MobileMenu({ open, onClose, links }) {
     return undefined;
   }, [open]);
 
-  // Escape closes; growing past the tablet breakpoint closes too (the
-  // desktop nav takes over and the burger is gone).
+  // Escape closes.
   useEffect(() => {
     if (!open) return undefined;
     const onKey = (e) => e.key === 'Escape' && onClose();
-    const mq = window.matchMedia('(min-width: 901px)');
-    const onMq = (e) => e.matches && onClose();
     window.addEventListener('keydown', onKey);
-    mq.addEventListener('change', onMq);
     const clock = window.setInterval(() => setTime(athensTime()), 30000);
     return () => {
       window.removeEventListener('keydown', onKey);
-      mq.removeEventListener('change', onMq);
       window.clearInterval(clock);
     };
   }, [open, onClose]);
@@ -122,7 +133,7 @@ export default function MobileMenu({ open, onClose, links }) {
 
   const meta = {
     '/work': `${pad(projects.length)} projects`,
-    '/#lab': 'Experiments',
+    '/#lab': 'Why it works',
     '/about': 'Studio',
     '/contact': 'Say hi',
   };
@@ -155,6 +166,7 @@ export default function MobileMenu({ open, onClose, links }) {
           </button>
         </div>
 
+        <div className="menu__body">
         <nav className="menu__nav">
           {links.map((l, i) => (
             <Link
@@ -171,14 +183,43 @@ export default function MobileMenu({ open, onClose, links }) {
                   <span className="menu__meta">
                     {isCurrent(l.to) ? <span className="serif-line">you&rsquo;re here</span> : meta[l.to]}
                   </span>
-                  <span className="menu__arrow" aria-hidden="true">
-                    ↗
-                  </span>
+                  <Arrow className="menu__arrow" />
                 </span>
               </span>
             </Link>
           ))}
         </nav>
+
+        <aside className="menu__aside menu__fade" aria-label="Selected work">
+          <div className="menu__poster" aria-hidden="true">
+            {projects.map((p, i) => (
+              <div
+                key={p.slug}
+                className={`menu__poster-img ${hoverProject === i ? 'is-active' : ''}`}
+                style={{ backgroundColor: p.color, backgroundImage: posters[i] ? `url(${posters[i]})` : undefined }}
+              />
+            ))}
+          </div>
+          <span className="eyebrow menu__muted">Selected work</span>
+          <ul className="menu__projects">
+            {projects.map((p, i) => (
+              <li key={p.slug}>
+                <Link
+                  to={`/work/${p.slug}`}
+                  className={`menu__project ${hoverProject === i ? 'is-active' : ''}`}
+                  onClick={onClose}
+                  onMouseEnter={() => setHoverProject(i)}
+                  onFocus={() => setHoverProject(i)}
+                >
+                  <span className="menu__project-n">{pad(i + 1)}</span>
+                  <span className="menu__project-name">{p.name}</span>
+                  <span className="menu__project-year">{p.year}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </aside>
+        </div>
 
         <div className="menu__foot">
           <div className="menu__controls menu__fade">
@@ -189,7 +230,7 @@ export default function MobileMenu({ open, onClose, links }) {
             <ThemeToggle />
           </div>
           <a href="mailto:hello@apostolisgkanatsios.com" className="menu__mail menu__fade">
-            hello@apostolisgkanatsios.com <span aria-hidden="true">↗</span>
+            hello@apostolisgkanatsios.com <Arrow />
           </a>
           <p className="serif-line menu__tag menu__fade">Creative developer — available for new projects.</p>
         </div>

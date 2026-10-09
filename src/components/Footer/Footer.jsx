@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Arrow from '../Arrow/Arrow';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import MagneticButton from '../MagneticButton/MagneticButton';
@@ -182,7 +183,7 @@ export default function Footer({ ready = true }) {
           </p>
           <div className="site-footer__button-wrap" ref={buttonWrapRef}>
             <MagneticButton href="mailto:hello@apostolisgkanatsios.com" cursorLabel="Say hi" className="site-footer__link">
-              Contact <span className="arrow">↗</span>
+              Contact <Arrow className="arrow" />
             </MagneticButton>
           </div>
         </div>

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
 import Pattern from '../components/Pattern/Pattern';
 import CtaFooter from '../components/CtaFooter/CtaFooter';
+import ProjectIndex from '../components/ProjectIndex/ProjectIndex';
 import Process from '../sections/Process/Process';
 import { projects } from '../data/projects';
 import './about.scss';
@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // *word* = Georgia italic emphasis.
 const MANIFESTO =
-  'I treat every site like a short film — *pacing*, light, and type that moves with intent. Engineering keeps it fast and accessible; *curiosity* keeps it a little strange. No templates, no autopilot — just the *right* thing, built properly.';
+  'Creative development is where design and engineering meet. I design the interface and build it myself, so what you approve is what ships — *fast*, accessible and easy to use. Motion, WebGL and interaction are there to *clarify* and give a brand personality, never as decoration. No templates, no shortcuts — just the *right* solution, built properly.';
 const words = MANIFESTO.split(' ').map((t) => ({ t: t.replace(/\*/g, ''), em: t.startsWith('*') }));
 
 const capabilities = [
@@ -22,7 +22,7 @@ const capabilities = [
   { n: '03', pattern: 'flow', title: 'Creative development', note: 'Clean, flexible solutions built for what’s next.' },
 ];
 
-const STACK = ['React', 'GSAP', 'Three.js', 'WebGL', 'Lenis', 'SCSS', 'Vite', 'Shopify', 'Webflow', 'WordPress'];
+const STACK = ['React', 'GSAP', 'Three.js', 'WebGL', 'Lenis', 'SCSS', 'Vite', 'E-commerce', 'UI/UX Design', 'Custom WordPress'];
 
 const PORTRAIT = '/images/about/portrait.jpg';
 
@@ -63,13 +63,13 @@ export default function About() {
           <div>
             <p className="eyebrow">About</p>
             <SplitReveal as="h1" type="lines" immediate stagger={0.11} className="about-page__title">
-              I build the web,
+              Creative development,
               <br />
-              cinematically.
+              done properly.
             </SplitReveal>
             <p className="about-page__lead">
-              I&rsquo;m Apostolis — an independent creative developer and UI/UX designer based in Athens. I partner
-              with founders, studios and agencies to turn ideas into distinctive, fast, intuitive websites — from
+              I&rsquo;m Apostolis — an independent creative developer and UI/UX designer based in Athens. I work
+              with founders, studios and agencies to design and build distinctive, fast, intuitive websites — from
               brochure sites to full e-commerce builds.
             </p>
           </div>
@@ -144,18 +144,7 @@ export default function About() {
           <h2 className="about-clients__title">Worked with</h2>
           <span className="eyebrow about-clients__tag">(03) Clients</span>
         </div>
-        <ul className="about-clients__list">
-          {projects.map((p) => (
-            <li key={p.slug}>
-              <Link to={`/work/${p.slug}`} className="about-clients__row" data-cursor="View">
-                <span className="about-clients__client">{p.client}</span>
-                <span className="about-clients__meta">{p.category}</span>
-                <span className="about-clients__meta">{p.year}</span>
-                <span className="about-clients__arrow">↗</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <ProjectIndex items={projects.map((_, i) => i)} nameKey="client" />
       </section>
 
       <CtaFooter />

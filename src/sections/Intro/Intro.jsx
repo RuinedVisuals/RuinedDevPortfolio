@@ -1,4 +1,5 @@
 import SplitReveal from '../../components/SplitReveal/SplitReveal';
+import Arrow from '../../components/Arrow/Arrow';
 import Pattern from '../../components/Pattern/Pattern';
 import './intro.scss';
 
@@ -42,7 +43,7 @@ export default function Intro() {
             <span className="intro__index">{s.n}</span>
             <h3 className="intro__row-title">{s.title}</h3>
             <p className="intro__row-note">{s.note}</p>
-            <span className="intro__row-arrow">↗</span>
+            <Arrow className="intro__row-arrow" />
           </li>
         ))}
       </ul>

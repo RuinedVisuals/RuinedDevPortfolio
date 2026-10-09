@@ -53,7 +53,7 @@
   }
 
   &__tagline {
-    font-size: clamp(16px, 2vw, 22px);
+    font-size: clamp(18px, 2.1vw, 24px);
     max-width: 520px;
     line-height: 1.3;
   }
@@ -80,7 +80,7 @@
     }
 
     p {
-      font-size: 15px;
+      font-size: 17px;
     }
   }
 
@@ -167,46 +167,146 @@
   &__gallery {
     background: var(--surface-a);
     color: var(--ink-on-a);
-    padding: clamp(40px, 6vw, 80px) v.$gutter;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-    gap: clamp(16px, 2vw, 28px);
+    padding: clamp(40px, 6vw, 80px) v.$gutter clamp(64px, 9vw, 140px);
+    overflow: hidden;
   }
 
-  &__shot {
+  &__gallery-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: clamp(24px, 3vw, 40px);
+
+    .eyebrow {
+      opacity: 0.6;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 2px;
+    }
+  }
+
+  // 12-col bento: full / wide (8) + phone (4) rows.
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(28px, 5vw, 72px) clamp(16px, 2.4vw, 36px);
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @include m.tablet {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__cell {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-
-    &.is-wide {
-      grid-column: 1 / -1;
-    }
+    gap: 14px;
+    will-change: transform;
 
     figcaption {
       display: flex;
-      justify-content: space-between;
-      font-size: 13px;
+      gap: 14px;
+      font-size: 14px;
 
       span:first-child {
         opacity: 0.6;
+        font-variant-numeric: tabular-nums;
+      }
+    }
+
+    &--full {
+      grid-column: 1 / -1;
+    }
+
+    &--wide {
+      grid-column: span 8;
+    }
+
+    &--phone {
+      grid-column: span 4;
+      align-items: center;
+    }
+
+    @include m.tablet {
+      &--full,
+      &--wide,
+      &--phone {
+        grid-column: 1;
+      }
+
+      &--phone {
+        width: min(62%, 300px);
+        justify-self: center;
       }
     }
   }
 
-  &__shot-frame {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    border-radius: 8px;
+  &__frame {
+    width: 100%;
+  }
+
+  &__cell--phone &__frame {
+    width: min(100%, 300px);
+  }
+
+  &__browser {
+    border: 1px solid var(--line-on-a);
+    border-radius: 12px;
     overflow: hidden;
     background: var(--surface-b);
-    color: var(--ink-on-b);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+  }
+
+  &__browser-bar {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 16px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line-on-a);
+    background: var(--surface-a);
+  }
 
-    .is-wide & {
-      aspect-ratio: 16 / 9;
+  &__browser-dots {
+    display: flex;
+    gap: 6px;
+
+    i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      opacity: 0.5;
     }
+  }
+
+  &__browser-url {
+    flex: 1;
+    max-width: 380px;
+    padding: 5px 14px;
+    border: 1px solid var(--line-on-a);
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    opacity: 0.8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__browser-view {
+    position: relative;
+    aspect-ratio: 1440 / 830; // crops any bottom cookie bar out of the capture
+    overflow: hidden;
+    background: center / cover;
 
     img {
       position: absolute;
@@ -214,15 +314,44 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: top;
+      transition: transform 1.2s v.$ease-out-soft;
+    }
+
+    &:hover img {
+      transform: scale(1.03);
     }
   }
 
-  &__shot-empty {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    opacity: 0.4;
+  &__phone {
+    position: relative;
+    aspect-ratio: 390 / 844;
+    border: 7px solid #0a0a0a;
+    border-radius: 38px;
+    overflow: hidden;
+    background: #0a0a0a;
+    box-shadow: 0 0 0 1px var(--line-on-a), 0 30px 70px rgba(0, 0, 0, 0.35);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      border-radius: 30px;
+    }
+  }
+
+  &__phone-notch {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 30%;
+    height: 18px;
+    transform: translateX(-50%);
+    border-radius: 99px;
+    background: #0a0a0a;
+    z-index: 1;
   }
 
   &__next {

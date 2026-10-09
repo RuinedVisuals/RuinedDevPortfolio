@@ -21,7 +21,7 @@ void main(){
   col=mix(col,hi,f*0.85);
   float stripe=step(0.5,fract(vUv.x*uRes.x/14.0)); col=mix(col,col*0.82,stripe*0.35*(1.0-f));
   col+=(h(vUv*uRes+fract(uTime*0.37))-0.5)*uGrain;
-  float rv=smoothstep(uReveal-0.08,uReveal,1.0-vUv.y);
+  float rv=smoothstep(1.0-uReveal,1.08-uReveal,vUv.y);
   col=mix(col,uDark,rv);
   gl_FragColor=vec4(col,1.0);
 }`;
