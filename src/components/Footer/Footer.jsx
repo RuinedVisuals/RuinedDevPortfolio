@@ -119,6 +119,12 @@ export default function Footer({ ready = true }) {
           '-=0.5'
         );
 
+        // On phones the zoomed photos stay crowded around the copy, so the
+        // grid recedes at the end and "Let's talk" rests on a clean field.
+        if (window.matchMedia('(max-width: 600px)').matches) {
+          tl.to(gridRef.current, { opacity: 0.12, duration: 0.6, ease: 'power1.inOut' }, '-=0.3');
+        }
+
         return tl;
       }
 
@@ -150,7 +156,9 @@ export default function Footer({ ready = true }) {
       timeline
         .add(gridRevealTimeline())
         .add(gridZoomTimeline(), '-=0.6')
-        .add(() => toggleContent(timeline.scrollTrigger.direction === 1), '-=0.32');
+        .add(() => toggleContent(timeline.scrollTrigger.direction === 1), '-=0.32')
+        // Hold: the finished state rests for a stretch of scroll before the footer ends.
+        .to({}, { duration: 0.5 });
     }, footerRef);
 
     return () => ctx.revert();
