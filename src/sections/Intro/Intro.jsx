@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import SplitReveal from '../../components/SplitReveal/SplitReveal';
 import Arrow from '../../components/Arrow/Arrow';
 import Pattern from '../../components/Pattern/Pattern';
@@ -7,17 +8,17 @@ const services = [
   {
     n: '01',
     title: 'UI & UX design',
-    note: 'Thoughtful experiences, from idea to interface.',
+    note: 'Research, flows and interfaces designed around how people actually use your site.',
   },
   {
     n: '02',
     title: 'Websites & e-commerce',
-    note: 'Distinctive, high-performing websites that convert.',
+    note: 'Custom WordPress, WooCommerce and headless builds that are fast and easy to manage.',
   },
   {
     n: '03',
     title: 'Creative development',
-    note: 'Clean, flexible solutions built for what\u2019s next.',
+    note: 'Motion, WebGL and interaction in React and GSAP, built from your designs or mine.',
   },
 ];
 
@@ -34,6 +35,9 @@ export default function Intro() {
         <p className="intro__desc">
           Independent creative developer and UI/UX designer based in Athens.
           I turn ideas into distinctive, intuitive websites.
+          <Link to="/approach" className="intro__link" data-cursor="Approach">
+            See my approach <Arrow className="arrow" />
+          </Link>
         </p>
       </div>
 

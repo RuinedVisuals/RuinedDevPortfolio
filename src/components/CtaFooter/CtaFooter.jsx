@@ -4,13 +4,18 @@ import Pattern from '../Pattern/Pattern';
 import './cta-footer.scss';
 
 /** Compact "Let's talk" closer used on inner pages (Home keeps the sticky grid Footer). */
-export default function CtaFooter({ description = true, short = false }) {
+export default function CtaFooter({
+  eyebrow = 'Got a project in mind?',
+  title = <>Let&rsquo;s talk.</>,
+  description = true,
+  short = false,
+}) {
   return (
     <footer className={`cta-footer ${short ? 'cta-footer--short' : ''}`} id="contact">
       <Pattern type="ascii" on="b" transparent alpha={0.28} cell={14} />
       <div className="cta-footer__content">
-        <p className="eyebrow cta-footer__eyebrow">Got a project in mind?</p>
-        <h2 className="cta-footer__title">Let&rsquo;s talk.</h2>
+        <p className="eyebrow cta-footer__eyebrow">{eyebrow}</p>
+        <h2 className="cta-footer__title">{title}</h2>
         {description && (
           <p className="cta-footer__description">
             Tell me about it — I read every message and usually reply within a day.

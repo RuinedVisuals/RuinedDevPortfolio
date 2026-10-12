@@ -1,11 +1,20 @@
 // `tag` drives the Work page filters ('Web' | 'E-commerce' | 'Experimental').
 // `shots` = captures of the live site (public/images/work/<slug>/), shown in
 // browser / phone frames on the project page.
+// `contribution` = 'Design' | 'Development' | 'Design & Development'.
+// `challenge` / `solution` feed the project page's case study; add an optional
+// `results` string (and `highlights: []`) per project once there is something real to say.
 // `image` is optional — until a real shot exists, a generative poster is
 // drawn in its place (see src/lib/posters.js) and duotoned per palette.
 export const projects = [
   {
     slug: 'rocks-villas',
+    contribution: 'Design & Development',
+    technologies: ['React', 'GSAP', 'SCSS'],
+    challenge:
+      'Two destinations, one brand — each needed its own character without splitting the story.',
+    solution:
+      'A shared design language with a portal per island, leading with philosophy and imagery before the booking step.',
     shots: {
       desktop: ['/images/work/rocks-villas/desktop-1.jpg', '/images/work/rocks-villas/desktop-2.jpg'],
       mobile: ['/images/work/rocks-villas/mobile-1.jpg', '/images/work/rocks-villas/mobile-2.jpg'],
@@ -25,6 +34,12 @@ export const projects = [
   },
   {
     slug: 'magnetica',
+    contribution: 'Design & Development',
+    technologies: ['WordPress', 'WooCommerce', 'JavaScript'],
+    challenge:
+      'Personalising a physical product online usually means a clunky upload form and doubt about the final print.',
+    solution:
+      'An in-browser editor for upload, crop and adjust, wrapped in a three-step order flow so the gift stays simple to order.',
     shots: {
       desktop: ['/images/work/magnetica/desktop-1.jpg', '/images/work/magnetica/desktop-2.jpg', '/images/work/magnetica/desktop-3.jpg'],
       mobile: ['/images/work/magnetica/mobile-1.jpg', '/images/work/magnetica/mobile-2.jpg', '/images/work/magnetica/mobile-3.jpg'],
@@ -44,6 +59,12 @@ export const projects = [
   },
   {
     slug: 'michael-mantas',
+    contribution: 'Design & Development',
+    technologies: ['React', 'GSAP', 'SCSS'],
+    challenge:
+      'An artist’s body of work — films, performances, writing — had to read like a screening, not a CV.',
+    solution:
+      'Pacing and motion borrowed from cinema: full-bleed media, deliberate transitions and calm, typographic navigation.',
     shots: {
       desktop: ['/images/work/michael-mantas/desktop-1.jpg', '/images/work/michael-mantas/desktop-2.jpg', '/images/work/michael-mantas/desktop-3.jpg'],
       mobile: ['/images/work/michael-mantas/mobile-1.jpg', '/images/work/michael-mantas/mobile-2.jpg', '/images/work/michael-mantas/mobile-3.jpg'],
@@ -63,6 +84,12 @@ export const projects = [
   },
   {
     slug: 'nove-graphics',
+    contribution: 'Design & Development',
+    technologies: ['React', 'GSAP', 'WebGL'],
+    challenge:
+      'A graphic design studio needed a site that behaves like its work: raw, tactile and print-minded.',
+    solution:
+      'A monochrome retro-system interface built around oversized type, texture and interaction details.',
     shots: {
       desktop: ['/images/work/nove-graphics/desktop-1.jpg', '/images/work/nove-graphics/desktop-2.jpg', '/images/work/nove-graphics/desktop-3.jpg'],
       mobile: ['/images/work/nove-graphics/mobile-1.jpg', '/images/work/nove-graphics/mobile-2.jpg', '/images/work/nove-graphics/mobile-3.jpg'],
@@ -82,6 +109,12 @@ export const projects = [
   },
   {
     slug: 'melina-tsagkataki',
+    contribution: 'Design & Development',
+    technologies: ['WordPress', 'JavaScript', 'SCSS'],
+    challenge:
+      'A clinical practice has to feel warm and trustworthy, and make booking a consultation obvious.',
+    solution:
+      'Clear paths for individuals and businesses, recipes and articles, and a straightforward booking flow.',
     shots: {
       desktop: ['/images/work/melina-tsagkataki/desktop-1.jpg', '/images/work/melina-tsagkataki/desktop-2.jpg', '/images/work/melina-tsagkataki/desktop-3.jpg'],
       mobile: ['/images/work/melina-tsagkataki/mobile-1.jpg', '/images/work/melina-tsagkataki/mobile-2.jpg', '/images/work/melina-tsagkataki/mobile-3.jpg'],
@@ -101,6 +134,12 @@ export const projects = [
   },
   {
     slug: 'shma',
+    contribution: 'Development',
+    technologies: ['WordPress', 'WooCommerce', 'PHP'],
+    challenge:
+      'A deep bilingual catalogue of signage and road safety equipment that contractors need to search quickly.',
+    solution:
+      'A structured product architecture with category-first navigation, so the right part is a few clicks away.',
     shots: {
       desktop: ['/images/work/shma/desktop-1.jpg', '/images/work/shma/desktop-2.jpg'],
       mobile: ['/images/work/shma/mobile-1.jpg', '/images/work/shma/mobile-2.jpg', '/images/work/shma/mobile-3.jpg'],

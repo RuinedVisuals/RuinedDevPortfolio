@@ -1,0 +1,22 @@
+@use '../../styles/abstracts/variables' as v;
+
+.availability {
+  background: var(--surface-b);
+  color: var(--ink-on-b);
+  padding: clamp(40px, 6vw, 80px) v.$gutter;
+  display: flex;
+  align-items: baseline;
+  gap: clamp(20px, 4vw, 64px);
+  flex-wrap: wrap;
+
+  &__tag {
+    opacity: 0.6;
+  }
+
+  &__text {
+    font-size: clamp(20px, 2.4vw, 32px);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    max-width: 880px;
+  }
+}

@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { usePageMeta } from '../components/Seo/usePageMeta';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
 import Pattern from '../components/Pattern/Pattern';
 import CtaFooter from '../components/CtaFooter/CtaFooter';
-import ProjectIndex from '../components/ProjectIndex/ProjectIndex';
-import Process from '../sections/Process/Process';
-import { projects } from '../data/projects';
+import MagneticButton from '../components/MagneticButton/MagneticButton';
+import Arrow from '../components/Arrow/Arrow';
 import './about.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,13 +17,23 @@ const MANIFESTO =
   'Creative development is where design and engineering meet. I design the interface and build it myself, so what you approve is what ships — *fast*, accessible and easy to use. Motion, WebGL and interaction are there to *clarify* and give a brand personality, never as decoration. No templates, no shortcuts — just the *right* solution, built properly.';
 const words = MANIFESTO.split(' ').map((t) => ({ t: t.replace(/\*/g, ''), em: t.startsWith('*') }));
 
-const capabilities = [
-  { n: '01', pattern: 'moire', title: 'UI & UX design', note: 'Thoughtful experiences, from idea to interface.' },
-  { n: '02', pattern: 'ascii', title: 'Websites & e-commerce', note: 'Distinctive, high-performing websites that convert.' },
-  { n: '03', pattern: 'flow', title: 'Creative development', note: 'Clean, flexible solutions built for what’s next.' },
+const answers = [
+  {
+    n: '01',
+    q: 'Who am I?',
+    a: 'Apostolis — an independent creative developer and UI/UX designer based in Athens. I work with founders, studios and agencies, from brochure sites to full e-commerce builds.',
+  },
+  {
+    n: '02',
+    q: 'How do I think?',
+    a: 'Design and engineering are one job. I design with the build in mind and build with the design in mind, so motion, performance and accessibility are decisions made early, not patched in later.',
+  },
+  {
+    n: '03',
+    q: 'Why work with me?',
+    a: 'You work directly with the person who designs and develops your project. No hand-offs, no middle layers — clear communication and a result that matches what you approved.',
+  },
 ];
-
-const STACK = ['React', 'GSAP', 'Three.js', 'WebGL', 'Lenis', 'SCSS', 'Vite', 'E-commerce', 'UI/UX Design', 'Custom WordPress'];
 
 const PORTRAIT = '/images/about/portrait.jpg';
 
@@ -113,45 +123,29 @@ export default function About() {
         </p>
       </section>
 
-      <section className="about-capabilities">
-        <div className="about-capabilities__head">
-          <h2 className="about-capabilities__title">
+      <section className="about-answers">
+        <div className="about-answers__head">
+          <h2 className="about-answers__title">
             Creative thinking.
             <br />
             Solid execution.
           </h2>
-          <span className="eyebrow about-capabilities__tag">(02) Capabilities</span>
+          <span className="eyebrow about-answers__tag">(02) The person behind it</span>
         </div>
-        <div className="about-capabilities__grid">
-          {capabilities.map((c) => (
-            <div key={c.n} className="about-capabilities__item">
-              <div className="about-capabilities__tile" data-cursor="Play">
-                <Pattern type={c.pattern} on="b" local className="about-capabilities__canvas" />
-              </div>
-              <span className="about-capabilities__n">{c.n}</span>
-              <h3 className="about-capabilities__item-title">{c.title}</h3>
-              <p className="about-capabilities__note">{c.note}</p>
+        <div className="about-answers__grid">
+          {answers.map((x) => (
+            <div key={x.n} className="about-answers__item">
+              <span className="about-answers__n">{x.n}</span>
+              <h3 className="about-answers__q">{x.q}</h3>
+              <p className="about-answers__a">{x.a}</p>
             </div>
           ))}
         </div>
-        <div className="about-capabilities__stack">
-          <span className="eyebrow">Toolbox</span>
-          {STACK.map((t) => (
-            <span key={t} className="pill">
-              {t}
-            </span>
-          ))}
+        <div className="about-answers__cta">
+          <MagneticButton as={Link} to="/approach" cursorLabel="Approach">
+            See how I work <Arrow className="arrow" />
+          </MagneticButton>
         </div>
-      </section>
-
-      <Process />
-
-      <section className="about-clients">
-        <div className="about-clients__head">
-          <h2 className="about-clients__title">Worked with</h2>
-          <span className="eyebrow about-clients__tag">(03) Clients</span>
-        </div>
-        <ProjectIndex items={projects.map((_, i) => i)} nameKey="client" />
       </section>
 
       <CtaFooter />

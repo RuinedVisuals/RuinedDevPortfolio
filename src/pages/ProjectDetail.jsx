@@ -153,6 +153,22 @@ function ProjectDetail({ slug }) {
               ))}
             </div>
           </div>
+          {project.technologies?.length > 0 && (
+            <div>
+              <span className="eyebrow">Technologies</span>
+              <div className="project-detail__pills">
+                {project.technologies.map((t) => (
+                  <span key={t} className="pill">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          <div>
+            <span className="eyebrow">Role</span>
+            <p>{project.contribution}</p>
+          </div>
           <div>
             <span className="eyebrow">Year</span>
             <p>{project.year}</p>
@@ -185,6 +201,23 @@ function ProjectDetail({ slug }) {
         </div>
         <p className="serif-line project-detail__quote">&ldquo;{project.tagline}&rdquo;</p>
       </section>
+
+      {(project.challenge || project.solution || project.results) && (
+        <section className="project-detail__case">
+          {[
+            ['Challenge', project.challenge],
+            ['Solution', project.solution],
+            ['Results', project.results],
+          ]
+            .filter(([, text]) => text)
+            .map(([label, text]) => (
+              <div key={label} className="project-detail__case-col">
+                <span className="eyebrow">{label}</span>
+                <p>{text}</p>
+              </div>
+            ))}
+        </section>
+      )}
 
       <section className="project-detail__gallery" ref={galleryRef}>
         <div className="project-detail__gallery-head">

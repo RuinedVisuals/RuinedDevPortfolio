@@ -3,7 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { useLenis } from './hooks/useLenis';
-import Loader from './components/Loader/Loader';
+// import Loader from './components/Loader/Loader'; // preloader disabled
 import Cursor from './components/Cursor/Cursor';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -11,6 +11,7 @@ import CurtainTransition from './components/Curtain/CurtainTransition';
 import Home from './pages/Home';
 import Work from './pages/Work';
 import ProjectDetail from './pages/ProjectDetail';
+import Approach from './pages/Approach';
 import About from './pages/About';
 import Contact from './pages/Contact';
 
@@ -22,8 +23,12 @@ export default function App() {
   // `loading` flips when the loader's shutters start to open (the site mounts
   // underneath so the hero reveal plays as they part); `loaderDone` removes
   // the loader once they're fully gone.
-  const [loading, setLoading] = useState(true);
-  const [loaderDone, setLoaderDone] = useState(false);
+  // Preloader disabled: start in the "ready" state so the page mounts (and
+  // every entrance animation plays) straight away. To restore it, switch the
+  // initial values back to true/false, re-enable the import and the <Loader />
+  // line below.
+  const [loading, setLoading] = useState(false);
+  const [loaderDone, setLoaderDone] = useState(true);
   useLenis({ enabled: !loading });
 
   // Everything that mounted under the loader measured itself while the page
@@ -54,7 +59,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <Cursor />
-      {!loaderDone && <Loader onReveal={() => setLoading(false)} onComplete={() => setLoaderDone(true)} />}
+      {/* {!loaderDone && <Loader onReveal={() => setLoading(false)} onComplete={() => setLoaderDone(true)} />} */}
 
       <div style={{ visibility: loading ? 'hidden' : 'visible' }}>
         {/* Mounted only once the loader is done, not just hidden underneath
@@ -75,6 +80,7 @@ export default function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/work" element={<Work />} />
                     <Route path="/work/:slug" element={<ProjectDetail />} />
+                    <Route path="/approach" element={<Approach />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="*" element={<Home />} />

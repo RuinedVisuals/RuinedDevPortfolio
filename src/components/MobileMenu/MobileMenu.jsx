@@ -133,7 +133,7 @@ export default function MobileMenu({ open, onClose, links }) {
 
   const meta = {
     '/work': `${pad(projects.length)} projects`,
-    '/#lab': 'Why it works',
+    '/approach': 'How I work',
     '/about': 'Studio',
     '/contact': 'Say hi',
   };

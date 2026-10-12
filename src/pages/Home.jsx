@@ -3,16 +3,17 @@ import { usePageMeta } from '../components/Seo/usePageMeta';
 import { useLocation } from 'react-router-dom';
 import Hero from '../sections/Hero/Hero';
 import WorkSlider from '../sections/WorkSlider/WorkSlider';
+import Studios from '../sections/Studios/Studios';
+import Availability from '../sections/Availability/Availability';
 import Intro from '../sections/Intro/Intro';
 import Lab from '../sections/Lab/Lab';
-import Process from '../sections/Process/Process';
 import { getLenis } from '../hooks/useLenis';
 
 export default function Home() {
   usePageMeta({
     title: null,
     description:
-      'Independent creative developer and UI/UX designer in Athens, GR. Distinctive, fast websites and e-commerce — designed and built end to end.',
+      'Independent creative developer and UI/UX designer in Athens, GR. Custom websites, e-commerce and creative front-end — for brands, and as a development partner for agencies.',
     path: '/',
   });
   const { hash, key } = useLocation();
@@ -42,7 +43,8 @@ export default function Home() {
       <WorkSlider />
       <Intro />
       <Lab />
-      <Process surface="a" />
+      <Studios />
+      <Availability />
     </>
   );
 }

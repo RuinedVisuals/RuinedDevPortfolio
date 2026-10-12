@@ -62,6 +62,16 @@
     line-height: 1.35;
   }
 
+  &__detail {
+    display: block;
+    margin-top: 14px;
+    max-width: 440px;
+    font-size: clamp(14px, 1.3vw, 16px);
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
   &__cta {
     color: var(--ink-on-a);
 

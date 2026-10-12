@@ -1,6 +1,7 @@
 import Logo from '../Logo/Logo';
 import Arrow from '../Arrow/Arrow';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
 import MagneticButton from '../MagneticButton/MagneticButton';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
@@ -10,7 +11,7 @@ import './header.scss';
 
 const links = [
   { label: 'Work', to: '/work' },
-  { label: 'Approach', to: '/#lab' },
+  { label: 'Approach', to: '/approach' },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ];
@@ -19,6 +20,18 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const close = useCallback(() => setOpen(false), []);
+  const rowRef = useRef(null);
+
+  // Entrance on first load: the bar eases down, then its contents fade in.
+  useEffect(() => {
+    const row = rowRef.current;
+    if (!row || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const ctx = gsap.context(() => {
+      gsap.from(row, { yPercent: -100, opacity: 0, duration: 1, delay: 0.1, ease: 'power3.out' });
+      gsap.from(row.children, { opacity: 0, y: -8, duration: 0.7, delay: 0.35, stagger: 0.08, ease: 'power2.out' });
+    });
+    return () => ctx.revert();
+  }, []);
 
   // Solid dark bar once the page has scrolled a little, so the header stays
   // legible over any section color without relying on blend-mode tricks
@@ -33,7 +46,7 @@ export default function Header() {
 
   return (
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-menu-open' : ''}`}>
-      <div className="site-header__row">
+      <div className="site-header__row" ref={rowRef}>
         <Link to="/" className="site-header__logo" data-cursor="Home">
           <Logo className="site-header__logo-mark" />
           <span className="sr-only">AG.</span>

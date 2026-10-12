@@ -119,7 +119,10 @@ export default function Work() {
 
         <div className="gallery-caption">
           <span className="gallery-caption__title">{activeProject.name}</span>
-          <span className="gallery-caption__sub">{activeProject.category}</span>
+          <span className="gallery-caption__sub">
+            {activeProject.category} · {activeProject.year} · {activeProject.contribution}
+          </span>
+          <span className="gallery-caption__sub">{activeProject.technologies?.join(' / ')}</span>
         </div>
         <div className="gallery-controls">
           <button

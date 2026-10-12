@@ -54,6 +54,9 @@ export default function Hero() {
           I design and build
           <br />
           distinctive websites.
+          <span className="hero__detail">
+            Custom websites, e-commerce, creative front-end and collaborations with agencies.
+          </span>
         </p>
         <div ref={ctaRef}>
           <MagneticButton href="#contact" cursorLabel="Let's talk" className="hero__cta">
