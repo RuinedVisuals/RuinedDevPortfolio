@@ -32,7 +32,7 @@ const answers = [
   {
     n: '03',
     q: 'Why work with me?',
-    a: 'You work directly with the person who designs and develops your project. No hand-offs, no middle layers — clear communication and a result that matches what you approved.',
+    a: 'You work directly with the person who designs and builds your project, with no account managers in between. When there are other people involved — your designers, copywriters, developers — I slot into your team and workflow.',
   },
 ];
 

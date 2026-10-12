@@ -19,6 +19,7 @@ export function useSplitReveal({
   start = 'top 85%',
   immediate = false,
   disabled = false,
+  aria = 'auto',
 } = {}) {
   const ref = useRef(null);
 
@@ -41,6 +42,7 @@ export function useSplitReveal({
         charsClass: 'split-char',
         mask: 'lines',
         autoSplit: true,
+        aria,
         onSplit: (self) => {
           const targets = type === 'lines' ? self.lines : type === 'words' ? self.words : self.chars;
           gsap.set(targets, { yPercent: 115, opacity: 0 });
@@ -66,7 +68,7 @@ export function useSplitReveal({
       ctx.revert();
       split?.revert?.();
     };
-  }, [type, delay, stagger, start, immediate, disabled]);
+  }, [type, delay, stagger, start, immediate, disabled, aria]);
 
   return ref;
 }

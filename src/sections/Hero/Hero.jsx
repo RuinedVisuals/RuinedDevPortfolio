@@ -40,11 +40,11 @@ export default function Hero() {
         Independent design &amp; development / Athens, GR
       </p>
 
-      <h1 className="hero__title" ref={titleRef}>
-        <SplitReveal as="span" type="chars" immediate delay={0.35} stagger={0.03} className="hero__line">
+      <h1 className="hero__title" ref={titleRef} aria-label="Creative Developer.">
+        <SplitReveal as="span" type="chars" immediate delay={0.35} stagger={0.03} aria="none" className="hero__line" aria-hidden="true">
           Creative
         </SplitReveal>
-        <SplitReveal as="span" type="chars" immediate delay={0.5} stagger={0.03} className="hero__line">
+        <SplitReveal as="span" type="chars" immediate delay={0.5} stagger={0.03} aria="none" className="hero__line" aria-hidden="true">
           Developer.
         </SplitReveal>
       </h1>

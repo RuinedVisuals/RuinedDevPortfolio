@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import Arrow from '../../components/Arrow/Arrow';
 import { Link, useNavigate } from 'react-router-dom';
 import SplitReveal from '../../components/SplitReveal/SplitReveal';
 import MagneticButton from '../../components/MagneticButton/MagneticButton';
-import Gallery3D from '../../components/Gallery3D/Gallery3D';
-import { GALLERY_MODES } from '../../lib/gallery3d';
+const Gallery3D = lazy(() => import('../../components/Gallery3D/Gallery3D'));
+import { GALLERY_MODES } from '../../lib/galleryModes';
 import { projects } from '../../data/projects';
 import './work-slider.scss';
 
@@ -44,6 +44,7 @@ export default function WorkSlider() {
         </div>
       </div>
 
+      <Suspense fallback={<div style={{ height: 'clamp(520px, 78vh, 820px)' }} />}>
       <Gallery3D
         ref={galleryRef}
         mode={mode}
@@ -62,6 +63,7 @@ export default function WorkSlider() {
           </div>
         )}
       </Gallery3D>
+      </Suspense>
 
       <div className="gallery-caption">
         <span className="gallery-caption__title">{project.name}</span>

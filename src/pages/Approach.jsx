@@ -34,7 +34,12 @@ const ways = [
     n: 'A',
     title: 'Development Partner',
     lead: 'For agencies and studios with designs ready to build.',
-    points: ['You bring the finished design', 'I build it faithfully, with motion and detail intact', 'Clean handover, documented and ready to scale'],
+    points: [
+      'Contract me as your development partner — white-label if you prefer, under your name and your client relationship',
+      'I join your workflow: your tools, your reviews, your deadlines',
+      'You bring the finished design; I build it faithfully, with motion and detail intact',
+      'Clean handover, documented and ready to scale',
+    ],
   },
   {
     n: 'B',
@@ -144,6 +149,10 @@ export default function Approach() {
           </SplitReveal>
           <span className="eyebrow approach-head__tag">(03) The process</span>
         </div>
+        <p className="approach-process__scope above-pattern">
+          The process adapts to the scope. On development-only projects we skip straight to Develop, starting from
+          your designs and specs.
+        </p>
         <div className="approach-process__grid above-pattern">
           {steps.map((s) => (
             <div key={s.n} className="approach-process__col">

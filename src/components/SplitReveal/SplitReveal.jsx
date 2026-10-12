@@ -10,11 +10,12 @@ export default function SplitReveal({
   stagger = 0.08,
   start = 'top 85%',
   immediate = false,
+  aria = 'auto',
   className = '',
   children,
   ...rest
 }) {
-  const ref = useSplitReveal({ type, delay, stagger, start, immediate });
+  const ref = useSplitReveal({ type, delay, stagger, start, immediate, aria });
 
   return (
     <Tag ref={ref} className={className} {...rest}>

@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useMemo, useRef, useState } from 'react';
 import { usePageMeta } from '../components/Seo/usePageMeta';
 import { pages } from '../data/seo';
 import Arrow from '../components/Arrow/Arrow';
@@ -6,10 +6,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
 import MagneticButton from '../components/MagneticButton/MagneticButton';
 import Pattern from '../components/Pattern/Pattern';
-import Gallery3D from '../components/Gallery3D/Gallery3D';
+const Gallery3D = lazy(() => import('../components/Gallery3D/Gallery3D'));
 import CtaFooter from '../components/CtaFooter/CtaFooter';
 import ProjectIndex from '../components/ProjectIndex/ProjectIndex';
-import { GALLERY_MODES } from '../lib/gallery3d';
+import { GALLERY_MODES } from '../lib/galleryModes';
 import { projects } from '../data/projects';
 import './work.scss';
 
@@ -96,7 +96,8 @@ export default function Work() {
           </div>
         </div>
 
-        <Gallery3D
+        <Suspense fallback={<div style={{ height: 'clamp(520px, 78vh, 820px)' }} />}>
+      <Gallery3D
           ref={galleryRef}
           mode={mode}
           items={items}
@@ -112,6 +113,7 @@ export default function Work() {
             </div>
           )}
         </Gallery3D>
+      </Suspense>
 
         <div className="gallery-caption">
           <span className="gallery-caption__title">{activeProject.name}</span>

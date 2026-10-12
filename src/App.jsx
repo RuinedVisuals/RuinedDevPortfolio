@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
@@ -9,11 +9,18 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import CurtainTransition from './components/Curtain/CurtainTransition';
 import Home from './pages/Home';
-import Work from './pages/Work';
-import ProjectDetail from './pages/ProjectDetail';
-import Approach from './pages/Approach';
-import About from './pages/About';
-import Contact from './pages/Contact';
+// Home ships in the main bundle; every other route loads on demand and is
+// prefetched when the browser is idle, so navigation stays instant.
+const loadWork = () => import('./pages/Work');
+const loadProject = () => import('./pages/ProjectDetail');
+const loadApproach = () => import('./pages/Approach');
+const loadAbout = () => import('./pages/About');
+const loadContact = () => import('./pages/Contact');
+const Work = lazy(loadWork);
+const ProjectDetail = lazy(loadProject);
+const Approach = lazy(loadApproach);
+const About = lazy(loadAbout);
+const Contact = lazy(loadContact);
 
 // Phones resize the viewport as the URL bar collapses mid-scroll; without this
 // every one of those triggers a full re-measure and the pinned footer jumps.
@@ -38,6 +45,8 @@ export default function App() {
   // once the loader is clear, and again whenever the document height changes.
   useEffect(() => {
     if (!loaderDone) return undefined;
+    const idle = window.requestIdleCallback || ((fn) => window.setTimeout(fn, 1500));
+    idle(() => [loadWork, loadApproach, loadAbout, loadContact, loadProject].forEach((load) => load()));
     let timer = 0;
     const refresh = () => {
       window.clearTimeout(timer);
@@ -76,6 +85,8 @@ export default function App() {
                     slides in underneath the page instead of covering it. */}
                 <div className="page-content">
                   <Header />
+                  <main id="main">
+                  <Suspense fallback={null}>
                   <Routes location={location}>
                     <Route path="/" element={<Home />} />
                     <Route path="/work" element={<Work />} />
@@ -85,6 +96,8 @@ export default function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="*" element={<Home />} />
                   </Routes>
+                  </Suspense>
+                  </main>
                 </div>
                 {/* Only Home closes on the sticky grid footer; inner pages
                     render their own CtaFooter. Keyed off the *displayed*
