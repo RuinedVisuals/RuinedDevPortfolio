@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { usePageMeta } from '../components/Seo/usePageMeta';
+import { pages } from '../data/seo';
 import { useLocation } from 'react-router-dom';
 import Hero from '../sections/Hero/Hero';
 import WorkSlider from '../sections/WorkSlider/WorkSlider';
@@ -10,12 +11,7 @@ import Lab from '../sections/Lab/Lab';
 import { getLenis } from '../hooks/useLenis';
 
 export default function Home() {
-  usePageMeta({
-    title: null,
-    description:
-      'Independent creative developer and UI/UX designer in Athens, GR. Custom websites, e-commerce and creative front-end — for brands, and as a development partner for agencies.',
-    path: '/',
-  });
+  usePageMeta(pages['/']);
   const { hash, key } = useLocation();
 
   // Header links like "/#lab": scroll once the section exists. Arriving from

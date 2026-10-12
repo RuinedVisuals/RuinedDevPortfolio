@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 const SITE = (import.meta.env.VITE_SITE_URL || window.location.origin).replace(/\/$/, '');
-const SUFFIX = ' — AG.';
 
 function setMeta(selector, attr, value) {
   let el = document.head.querySelector(selector);
@@ -21,7 +20,7 @@ function setMeta(selector, attr, value) {
  */
 export function usePageMeta({ title, description, path = '/' }) {
   useEffect(() => {
-    const full = title ? `${title}${SUFFIX}` : 'AG. — Creative Developer in Athens';
+    const full = title;
     const url = `${SITE}${path}`;
     document.title = full;
     if (description) {

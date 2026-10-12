@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../components/Seo/usePageMeta';
+import { pages } from '../data/seo';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
@@ -38,12 +39,7 @@ const answers = [
 const PORTRAIT = '/images/about/portrait.jpg';
 
 export default function About() {
-  usePageMeta({
-    title: 'About',
-    description:
-      'Apostolis — independent creative developer and UI/UX designer in Athens. I design and build distinctive, fast, intuitive websites and e-commerce stores.',
-    path: '/about',
-  });
+  usePageMeta(pages['/about']);
   const manifestoRef = useRef(null);
   const [hasPortrait, setHasPortrait] = useState(true);
 

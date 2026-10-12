@@ -1,4 +1,5 @@
 import { usePageMeta } from '../components/Seo/usePageMeta';
+import { pages } from '../data/seo';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
 import Pattern from '../components/Pattern/Pattern';
 import CtaFooter from '../components/CtaFooter/CtaFooter';
@@ -57,12 +58,7 @@ const stack = [
 ];
 
 export default function Approach() {
-  usePageMeta({
-    title: 'Approach',
-    description:
-      'How I work: UI/UX design, websites & e-commerce and creative development — as a development partner for agencies, or end to end on a full project.',
-    path: '/approach',
-  });
+  usePageMeta(pages['/approach']);
 
   return (
     <>
