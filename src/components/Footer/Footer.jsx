@@ -207,7 +207,7 @@ export default function Footer({ ready = true }) {
             Tell me about it — I read every message and usually reply within a day.
           </p>
           <div className="site-footer__button-wrap" ref={buttonWrapRef}>
-            <MagneticButton href="mailto:hello@apostolisgkanatsios.com" cursorLabel="Say hi" className="site-footer__link">
+            <MagneticButton href="mailto:hello@weareruined.com" cursorLabel="Say hi" className="site-footer__link">
               Contact <Arrow className="arrow" />
             </MagneticButton>
           </div>

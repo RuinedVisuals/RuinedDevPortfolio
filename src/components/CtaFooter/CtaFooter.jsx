@@ -22,7 +22,7 @@ export default function CtaFooter({
           </p>
         )}
         <div className="cta-footer__button-wrap">
-          <MagneticButton href="mailto:hello@apostolisgkanatsios.com" cursorLabel="Say hi" className="cta-footer__link">
+          <MagneticButton href="mailto:hello@weareruined.com" cursorLabel="Say hi" className="cta-footer__link">
             Contact <Arrow className="arrow" />
           </MagneticButton>
         </div>

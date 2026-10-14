@@ -8,7 +8,7 @@ import './contact.scss';
 
 // TODO: phone / Instagram / LinkedIn are placeholders from the design handoff.
 const links = [
-  { label: 'Email', detail: 'hello@apostolisgkanatsios.com', href: 'mailto:hello@apostolisgkanatsios.com', cursor: 'Write' },
+  { label: 'Email', detail: 'hello@weareruined.com', href: 'mailto:hello@weareruined.com', cursor: 'Write' },
   { label: 'Phone', detail: '+30 690 000 0000', href: 'tel:+306900000000', cursor: 'Call' },
   { label: 'Instagram', href: 'https://instagram.com/', cursor: 'Follow', external: true },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/', cursor: 'Connect', external: true },

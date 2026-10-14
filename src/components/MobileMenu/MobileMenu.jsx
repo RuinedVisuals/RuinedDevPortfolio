@@ -229,8 +229,8 @@ export default function MobileMenu({ open, onClose, links }) {
             <span className="eyebrow menu__muted">Reverse</span>
             <ThemeToggle />
           </div>
-          <a href="mailto:hello@apostolisgkanatsios.com" className="menu__mail menu__fade">
-            hello@apostolisgkanatsios.com <Arrow />
+          <a href="mailto:hello@weareruined.com" className="menu__mail menu__fade">
+            hello@weareruined.com <Arrow />
           </a>
           <p className="serif-line menu__tag menu__fade">Creative developer — available for new projects.</p>
         </div>
