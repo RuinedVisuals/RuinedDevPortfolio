@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "node scripts/sync-content.mjs && vite build && node scripts/prerender.mjs",
     "lint": "oxlint",
+    "sync": "node scripts/sync-content.mjs",
+    "migrate": "node scripts/migrate-to-sanity.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

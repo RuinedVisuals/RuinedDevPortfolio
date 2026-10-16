@@ -1,0 +1,221 @@
+[
+  {
+    "slug": "rocks-villas",
+    "contribution": "Design & Development",
+    "technologies": [
+      "React",
+      "GSAP",
+      "SCSS"
+    ],
+    "challenge": "Two destinations, one brand — each needed its own character without splitting the story.",
+    "solution": "A shared design language with a portal per island, leading with philosophy and imagery before the booking step.",
+    "shots": {
+      "desktop": [
+        "/images/work/rocks-villas/desktop-1.jpg",
+        "/images/work/rocks-villas/desktop-2.jpg"
+      ],
+      "mobile": [
+        "/images/work/rocks-villas/mobile-1.jpg",
+        "/images/work/rocks-villas/mobile-2.jpg"
+      ]
+    },
+    "name": "Rocks Villas",
+    "tagline": "Privacy, comfort and authentic island living.",
+    "category": "Web design & development",
+    "tag": "Web",
+    "year": "2026",
+    "color": "#2a1612",
+    "url": "https://rocksvillas.com/",
+    "client": "Rocks Villas",
+    "services": [
+      "Art direction",
+      "Web design",
+      "Front-end development"
+    ],
+    "description": "A refined collection of handpicked villas across Mykonos and Paros. One brand, two destination portals — a calm, image-led site that leads with philosophy and story before it ever asks you to book."
+  },
+  {
+    "slug": "magnetica",
+    "contribution": "Design & Development",
+    "technologies": [
+      "WordPress",
+      "WooCommerce",
+      "JavaScript"
+    ],
+    "challenge": "Personalising a physical product online usually means a clunky upload form and doubt about the final print.",
+    "solution": "An in-browser editor for upload, crop and adjust, wrapped in a three-step order flow so the gift stays simple to order.",
+    "shots": {
+      "desktop": [
+        "/images/work/magnetica/desktop-1.jpg",
+        "/images/work/magnetica/desktop-2.jpg",
+        "/images/work/magnetica/desktop-3.jpg"
+      ],
+      "mobile": [
+        "/images/work/magnetica/mobile-1.jpg",
+        "/images/work/magnetica/mobile-2.jpg",
+        "/images/work/magnetica/mobile-3.jpg"
+      ]
+    },
+    "name": "Magnetica",
+    "tagline": "Your moments, in your hands.",
+    "category": "E-commerce",
+    "tag": "E-commerce",
+    "year": "2026",
+    "color": "#241b1c",
+    "url": "https://magnetica.ruinedvisuals.com/",
+    "client": "Magnetica",
+    "services": [
+      "UX/UI design",
+      "E-commerce build",
+      "Product customizer"
+    ],
+    "description": "Custom photo magnets, printed in Greece. The store is built around an in-browser editor — upload, crop and adjust your photo — wrapped in a three-step order flow that keeps a personal gift feeling simple."
+  },
+  {
+    "slug": "michael-mantas",
+    "contribution": "Design & Development",
+    "technologies": [
+      "React",
+      "GSAP",
+      "SCSS"
+    ],
+    "challenge": "An artist’s body of work — films, performances, writing — had to read like a screening, not a CV.",
+    "solution": "Pacing and motion borrowed from cinema: full-bleed media, deliberate transitions and calm, typographic navigation.",
+    "shots": {
+      "desktop": [
+        "/images/work/michael-mantas/desktop-1.jpg",
+        "/images/work/michael-mantas/desktop-2.jpg",
+        "/images/work/michael-mantas/desktop-3.jpg"
+      ],
+      "mobile": [
+        "/images/work/michael-mantas/mobile-1.jpg",
+        "/images/work/michael-mantas/mobile-2.jpg",
+        "/images/work/michael-mantas/mobile-3.jpg"
+      ]
+    },
+    "name": "Michael Mantas",
+    "tagline": "The camera as witness. Between memory and projection.",
+    "category": "Artist portfolio",
+    "tag": "Web",
+    "year": "2026",
+    "color": "#1c1210",
+    "url": "https://michaelmantas.ruinedvisuals.com/",
+    "client": "Michael Mantas",
+    "services": [
+      "Art direction",
+      "Web design",
+      "Front-end development"
+    ],
+    "description": "A home for a Greek-Canadian filmmaker and performance artist working in autoethnographic cinema. Films, performances, writing and talks — paced like a screening rather than a CV."
+  },
+  {
+    "slug": "nove-graphics",
+    "contribution": "Design & Development",
+    "technologies": [
+      "React",
+      "GSAP",
+      "WebGL"
+    ],
+    "challenge": "A graphic design studio needed a site that behaves like its work: raw, tactile and print-minded.",
+    "solution": "A monochrome retro-system interface built around oversized type, texture and interaction details.",
+    "shots": {
+      "desktop": [
+        "/images/work/nove-graphics/desktop-1.jpg",
+        "/images/work/nove-graphics/desktop-2.jpg",
+        "/images/work/nove-graphics/desktop-3.jpg"
+      ],
+      "mobile": [
+        "/images/work/nove-graphics/mobile-1.jpg",
+        "/images/work/nove-graphics/mobile-2.jpg",
+        "/images/work/nove-graphics/mobile-3.jpg"
+      ]
+    },
+    "name": "Nove Graphics",
+    "tagline": "Digging culture.",
+    "category": "Studio portfolio",
+    "tag": "Experimental",
+    "year": "2025",
+    "color": "#150d0c",
+    "url": "https://novegraphics.vercel.app/",
+    "client": "Nove Graphics",
+    "services": [
+      "Web design",
+      "Front-end development",
+      "Interaction design"
+    ],
+    "description": "An Athens graphic design studio working in posters, album art and identity. A monochrome, retro-system interface — NOVE_GRAPHICS.EXE — built around oversized type, cinematic texture and print."
+  },
+  {
+    "slug": "melina-tsagkataki",
+    "contribution": "Design & Development",
+    "technologies": [
+      "WordPress",
+      "JavaScript",
+      "SCSS"
+    ],
+    "challenge": "A clinical practice has to feel warm and trustworthy, and make booking a consultation obvious.",
+    "solution": "Clear paths for individuals and businesses, recipes and articles, and a straightforward booking flow.",
+    "shots": {
+      "desktop": [
+        "/images/work/melina-tsagkataki/desktop-1.jpg",
+        "/images/work/melina-tsagkataki/desktop-2.jpg",
+        "/images/work/melina-tsagkataki/desktop-3.jpg"
+      ],
+      "mobile": [
+        "/images/work/melina-tsagkataki/mobile-1.jpg",
+        "/images/work/melina-tsagkataki/mobile-2.jpg",
+        "/images/work/melina-tsagkataki/mobile-3.jpg"
+      ]
+    },
+    "name": "Melina Tsagkataki",
+    "tagline": "Balanced nutrition, without restrictions.",
+    "category": "Web design & development",
+    "tag": "Web",
+    "year": "2025",
+    "color": "#2a0f0a",
+    "url": "https://melinatsagdiet.gr/",
+    "client": "Melina Tsagkataki — Clinical Dietitian",
+    "services": [
+      "Web design",
+      "Front-end development",
+      "Online booking"
+    ],
+    "description": "A clinical dietitian’s practice, online. Clear paths for individuals and businesses, recipes and articles, and booking for consultations by phone or video — warm, approachable and easy to act on."
+  },
+  {
+    "slug": "shma",
+    "contribution": "Development",
+    "technologies": [
+      "WordPress",
+      "WooCommerce",
+      "PHP"
+    ],
+    "challenge": "A deep bilingual catalogue of signage and road safety equipment that contractors need to search quickly.",
+    "solution": "A structured product architecture with category-first navigation, so the right part is a few clicks away.",
+    "shots": {
+      "desktop": [
+        "/images/work/shma/desktop-1.jpg",
+        "/images/work/shma/desktop-2.jpg"
+      ],
+      "mobile": [
+        "/images/work/shma/mobile-1.jpg",
+        "/images/work/shma/mobile-2.jpg",
+        "/images/work/shma/mobile-3.jpg"
+      ]
+    },
+    "name": "ΣΗΜΑ",
+    "tagline": "Road safety equipment, catalogued.",
+    "category": "E-commerce · B2B",
+    "tag": "E-commerce",
+    "year": "2025",
+    "color": "#3a1410",
+    "url": "https://shma.gr/",
+    "client": "ΣΗΜΑ Α.Β.Ε.Ε.",
+    "services": [
+      "UX/UI design",
+      "E-commerce build",
+      "Catalogue architecture"
+    ],
+    "description": "A Greek manufacturer of traffic signs and road safety equipment. A deep, bilingual product catalogue — signage, site equipment, pavement materials — organised so contractors find the right part fast."
+  }
+]

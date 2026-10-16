@@ -26,3 +26,5 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+studio/node_modules
+studio/dist
