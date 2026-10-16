@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getLenis } from '../hooks/useLenis';
 import { usePageMeta } from '../components/Seo/usePageMeta';
 import { pages } from '../data/seo';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
@@ -64,6 +67,24 @@ const stack = [
 
 export default function Approach() {
   usePageMeta(pages['/approach']);
+  const { hash, key } = useLocation();
+
+  // "/approach#disciplines": scroll once the route curtain has cleared.
+  useEffect(() => {
+    if (!hash) return undefined;
+    const transitioning = document.body.classList.contains('is-transitioning');
+    const id = window.setTimeout(
+      () => {
+        const el = document.querySelector(hash);
+        if (!el) return;
+        const lenis = getLenis();
+        if (lenis) lenis.scrollTo(el, { force: true });
+        else el.scrollIntoView({ behavior: 'smooth' });
+      },
+      transitioning ? 900 : 0
+    );
+    return () => window.clearTimeout(id);
+  }, [hash, key]);
 
   return (
     <>
@@ -82,7 +103,7 @@ export default function Approach() {
         </div>
       </section>
 
-      <section className="approach-disciplines">
+      <section className="approach-disciplines" id="disciplines">
         <div className="approach-head">
           <SplitReveal as="h2" type="lines" className="approach-head__title">
             Three disciplines.
@@ -94,7 +115,7 @@ export default function Approach() {
         <div className="approach-disciplines__grid">
           {disciplines.map((d) => (
             <div key={d.n} className="approach-disciplines__item">
-              <div className="approach-disciplines__tile" data-cursor="Play">
+              <div className="approach-disciplines__tile">
                 <Pattern type={d.pattern} on="b" local className="approach-disciplines__canvas" />
               </div>
               <span className="approach-disciplines__n">{d.n}</span>

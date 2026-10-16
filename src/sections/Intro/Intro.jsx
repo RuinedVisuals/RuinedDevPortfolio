@@ -43,11 +43,13 @@ export default function Intro() {
 
       <ul className="intro__list">
         {services.map((s) => (
-          <li key={s.n} className="intro__row" data-cursor="＋">
-            <span className="intro__index">{s.n}</span>
-            <h3 className="intro__row-title">{s.title}</h3>
-            <p className="intro__row-note">{s.note}</p>
-            <Arrow className="intro__row-arrow" />
+          <li key={s.n}>
+            <Link to="/approach#disciplines" className="intro__row" data-cursor="Approach">
+              <span className="intro__index">{s.n}</span>
+              <h3 className="intro__row-title">{s.title}</h3>
+              <p className="intro__row-note">{s.note}</p>
+              <Arrow className="intro__row-arrow" />
+            </Link>
           </li>
         ))}
       </ul>

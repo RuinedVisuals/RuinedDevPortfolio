@@ -96,7 +96,7 @@ export default function Lab() {
       <div className="lab__grid">
         {sketches.map((s) => (
           <div key={s.n} className="lab__item">
-            <div className="lab__tile" data-cursor="Play">
+            <div className="lab__tile">
               <Pattern type={s.type} local className="lab__canvas" {...s.opts} />
             </div>
             <div className="lab__caption">
