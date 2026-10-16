@@ -36,6 +36,10 @@
     overflow: hidden;
     .split-line-mask {
       margin-bottom: -40px;
+      // Laptops: the fixed overlap is too much for the smaller type.
+      @media (max-width: 1600px) {
+        margin-bottom: -0.12em;
+      }
       @include m.mobile {
         margin-bottom: 0;
       }
