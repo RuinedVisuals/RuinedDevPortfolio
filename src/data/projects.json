@@ -7,7 +7,7 @@
       "GSAP",
       "SCSS"
     ],
-    "challenge": "Two destinations, one brand — each needed its own character without splitting the story.",
+    "challenge": "Two destinations, one brand, each needed its own character without splitting the story.",
     "solution": "A shared design language with a portal per island, leading with philosophy and imagery before the booking step.",
     "shots": {
       "desktop": [
@@ -32,7 +32,41 @@
       "Web design",
       "Front-end development"
     ],
-    "description": "A refined collection of handpicked villas across Mykonos and Paros. One brand, two destination portals — a calm, image-led site that leads with philosophy and story before it ever asks you to book."
+    "description": "A refined collection of handpicked villas across Mykonos and Paros. One brand, two destination portals, a calm, image-led site that leads with philosophy and story before it ever asks you to book."
+  },
+  {
+    "slug": "paobc",
+    "contribution": "Development",
+    "technologies": [
+      "GSAP",
+      "Alpine.js",
+      "SCSS"
+    ],
+    "challenge": "A club with a global fanbase needed a site that feels as live as match night: tickets, news and club history all one tap from the hero.",
+    "solution": "Front-end build of the header, footer, homepage and the History section: the carousel hero, news rail, membership sign-up and the animated titles pages.",
+    "shots": {
+      "desktop": [
+        "/images/work/paobc/desktop-1.webp",
+        "/images/work/paobc/desktop-2.png",
+        "/images/work/paobc/desktop-3.webp",
+        "/images/work/paobc/desktop-4.webp",
+        "/images/work/paobc/desktop-5.webp"
+      ],
+      "mobile": []
+    },
+    "name": "Panathinaikos BC",
+    "tagline": "Feel every moment.",
+    "category": "Sports club website",
+    "tag": "Web",
+    "year": "2026",
+    "color": "#0b1a12",
+    "client": "Panathinaikos BC AKTOR",
+    "services": [
+      "Front-end development",
+      "Homepage",
+      "History pages"
+    ],
+    "description": "The official site of Panathinaikos BC AKTOR. I built the global header and footer, the full homepage and the History section, with the club's own in-house team."
   },
   {
     "slug": "magnetica",
@@ -62,14 +96,14 @@
     "tag": "E-commerce",
     "year": "2026",
     "color": "#241b1c",
-    "url": "https://magnetica.ruinedvisuals.com/",
+    "url": "https://magnetica.gr/",
     "client": "Magnetica",
     "services": [
       "UX/UI design",
       "E-commerce build",
       "Product customizer"
     ],
-    "description": "Custom photo magnets, printed in Greece. The store is built around an in-browser editor — upload, crop and adjust your photo — wrapped in a three-step order flow that keeps a personal gift feeling simple."
+    "description": "Custom photo magnets, printed in Greece. The store is built around an in-browser editor (upload, crop and adjust your photo) wrapped in a three-step order flow that keeps a personal gift feeling simple."
   },
   {
     "slug": "michael-mantas",
@@ -79,7 +113,7 @@
       "GSAP",
       "SCSS"
     ],
-    "challenge": "An artist’s body of work — films, performances, writing — had to read like a screening, not a CV.",
+    "challenge": "An artist’s body of work (films, performances, writing) had to read like a screening, not a CV.",
     "solution": "Pacing and motion borrowed from cinema: full-bleed media, deliberate transitions and calm, typographic navigation.",
     "shots": {
       "desktop": [
@@ -97,6 +131,7 @@
     "tagline": "The camera as witness. Between memory and projection.",
     "category": "Artist portfolio",
     "tag": "Web",
+    "status": "In progress",
     "year": "2026",
     "color": "#1c1210",
     "url": "https://michaelmantas.ruinedvisuals.com/",
@@ -106,7 +141,7 @@
       "Web design",
       "Front-end development"
     ],
-    "description": "A home for a Greek-Canadian filmmaker and performance artist working in autoethnographic cinema. Films, performances, writing and talks — paced like a screening rather than a CV."
+    "description": "A home for a Greek-Canadian filmmaker and performance artist working in autoethnographic cinema. Films, performances, writing and talks, paced like a screening rather than a CV."
   },
   {
     "slug": "nove-graphics",
@@ -134,6 +169,7 @@
     "tagline": "Digging culture.",
     "category": "Studio portfolio",
     "tag": "Experimental",
+    "status": "In progress",
     "year": "2025",
     "color": "#150d0c",
     "url": "https://novegraphics.vercel.app/",
@@ -143,7 +179,7 @@
       "Front-end development",
       "Interaction design"
     ],
-    "description": "An Athens graphic design studio working in posters, album art and identity. A monochrome, retro-system interface — NOVE_GRAPHICS.EXE — built around oversized type, cinematic texture and print."
+    "description": "An Athens graphic design studio working in posters, album art and identity. A monochrome, retro-system interface, NOVE_GRAPHICS.EXE, built around oversized type, cinematic texture and print."
   },
   {
     "slug": "melina-tsagkataki",
@@ -174,13 +210,13 @@
     "year": "2025",
     "color": "#2a0f0a",
     "url": "https://melinatsagdiet.gr/",
-    "client": "Melina Tsagkataki — Clinical Dietitian",
+    "client": "Melina Tsagkataki, Clinical Dietitian",
     "services": [
       "Web design",
       "Front-end development",
       "Online booking"
     ],
-    "description": "A clinical dietitian’s practice, online. Clear paths for individuals and businesses, recipes and articles, and booking for consultations by phone or video — warm, approachable and easy to act on."
+    "description": "A clinical dietitian’s practice, online. Clear paths for individuals and businesses, recipes and articles, and booking for consultations by phone or video, warm, approachable and easy to act on."
   },
   {
     "slug": "shma",
@@ -216,6 +252,6 @@
       "E-commerce build",
       "Catalogue architecture"
     ],
-    "description": "A Greek manufacturer of traffic signs and road safety equipment. A deep, bilingual product catalogue — signage, site equipment, pavement materials — organised so contractors find the right part fast."
+    "description": "A Greek manufacturer of traffic signs and road safety equipment. A deep, bilingual product catalogue (signage, site equipment, pavement materials) organised so contractors find the right part fast."
   }
 ]

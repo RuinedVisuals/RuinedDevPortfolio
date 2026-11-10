@@ -15,7 +15,7 @@ if (!id) {
 }
 
 const query = `*[_type == "project"] | order(order asc) {
-  "slug": slug.current, name, tagline, category, tag, contribution, year, color, url, client,
+  "slug": slug.current, name, tagline, category, tag, status, contribution, year, color, url, client,
   services, technologies, description, challenge, solution,
   "desktop": desktopShots[].asset->url,
   "mobile": mobileShots[].asset->url

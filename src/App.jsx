@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { useLenis } from './hooks/useLenis';
 // import Loader from './components/Loader/Loader'; // preloader disabled
 import Cursor from './components/Cursor/Cursor';
+import ChatNudge from './components/ChatNudge/ChatNudge';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import CurtainTransition from './components/Curtain/CurtainTransition';
@@ -68,6 +69,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <Cursor />
+      <ChatNudge />
       {/* {!loaderDone && <Loader onReveal={() => setLoading(false)} onComplete={() => setLoaderDone(true)} />} */}
 
       <div style={{ visibility: loading ? 'hidden' : 'visible' }}>

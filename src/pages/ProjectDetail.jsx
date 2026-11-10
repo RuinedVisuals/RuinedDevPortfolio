@@ -40,6 +40,7 @@ function buildShots(shots) {
     out.push({ kind: 'phone', src: m[1], label: 'Mobile', speed: 8 });
     out.push({ kind: 'wide', src: d[2], label: 'Desktop', speed: 3 });
   }
+  d.slice(m[1] ? 3 : 2).forEach((src) => out.push({ kind: 'wide', src, label: 'Desktop', speed: 3 }));
   return out;
 }
 
@@ -79,7 +80,7 @@ function ProjectDetail({ slug }) {
     return () => window.removeEventListener('mousemove', move);
   }, []);
 
-  usePageMeta(project ? { ...projectMeta(project), path: `/work/${slug}` } : { title: 'Project — RUINED', path: `/work/${slug}` });
+  usePageMeta(project ? { ...projectMeta(project), path: `/work/${slug}` } : { title: 'Project | RUINED', path: `/work/${slug}` });
   const gallery = buildShots(project?.shots);
   // Cells drift at slightly different speeds as they scroll through.
   const galleryRef = useRef(null);
@@ -125,7 +126,7 @@ function ProjectDetail({ slug }) {
         </div>
         <div className="project-detail__hero-inner">
           <p className="eyebrow">
-            {project.category} — {project.year}
+            {project.category} · {project.year}
           </p>
           <SplitReveal as="h1" type="lines" immediate delay={0.25} className="project-detail__title">
             {project.name}
@@ -238,7 +239,7 @@ function ProjectDetail({ slug }) {
                   {s.kind === 'phone' ? (
                     <div className="project-detail__phone">
                       <span className="project-detail__phone-notch" aria-hidden="true" />
-                      <img src={s.src} alt={`${project.name} — ${s.label}`} loading="lazy" />
+                      <img src={s.src} alt={`${project.name}, ${s.label}`} loading="lazy" />
                     </div>
                   ) : (
                     <div className="project-detail__browser">
@@ -251,7 +252,7 @@ function ProjectDetail({ slug }) {
                         <span className="project-detail__browser-url">{host || project.name}</span>
                       </div>
                       <div className="project-detail__browser-view">
-                        <img src={s.src} alt={`${project.name} — ${s.label}`} loading="lazy" />
+                        <img src={s.src} alt={`${project.name}, ${s.label}`} loading="lazy" />
                       </div>
                     </div>
                   )}

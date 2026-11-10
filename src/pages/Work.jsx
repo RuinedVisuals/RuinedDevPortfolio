@@ -54,10 +54,10 @@ export default function Work() {
           </SplitReveal>
           <div className="work-hero__foot">
             <p className="serif-line work-hero__sub">
-              Villas, stores, studios and artists — sites built for people with something to show.
+              Villas, stores, studios and artists, sites built for people with something to show.
             </p>
             <span className="work-hero__count">
-              {pad(projects.length)} projects · {Math.min(...years)} — {Math.max(...years)}
+              {pad(projects.length)} projects · {Math.min(...years)} to {Math.max(...years)}
             </span>
           </div>
         </div>
@@ -119,6 +119,7 @@ export default function Work() {
           <span className="gallery-caption__title">{activeProject.name}</span>
           <span className="gallery-caption__sub">
             {activeProject.category} · {activeProject.year} · {activeProject.contribution}
+            {activeProject.status && ` · ${activeProject.status}`}
           </span>
           <span className="gallery-caption__sub">{activeProject.technologies?.join(' / ')}</span>
         </div>
@@ -151,7 +152,7 @@ export default function Work() {
         <div className="work-page__head">
           <h2 className="work-page__title">Index</h2>
           <span className="eyebrow work-page__meta">
-            {filterLabel} — {pad(items.length)} projects
+            {filterLabel} · {pad(items.length)} projects
           </span>
         </div>
 

@@ -38,7 +38,7 @@ const ways = [
     title: 'Development Partner',
     lead: 'For agencies and studios with designs ready to build.',
     points: [
-      'Contract me as your development partner — white-label if you prefer, under your name and your client relationship',
+      'Contract me as your development partner, white-label if you prefer, under your name and your client relationship',
       'I join your workflow: your tools, your reviews, your deadlines',
       'You bring the finished design; I build it faithfully, with motion and detail intact',
       'Clean handover, documented and ready to scale',
@@ -155,7 +155,7 @@ export default function Approach() {
           ))}
         </div>
         <p className="approach-ways__ongoing">
-          <span className="serif-line">Ongoing collaborations.</span> Many projects continue after launch — new
+          <span className="serif-line">Ongoing collaborations.</span> Many projects continue after launch, new
           features, content updates, performance work. Happy to stay on as your go-to developer.
         </p>
       </section>

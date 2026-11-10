@@ -26,6 +26,7 @@ export default defineType({
       type: 'string',
       options: { list: ['Web', 'E-commerce', 'Experimental'] },
     }),
+    defineField({ name: 'status', type: 'string', description: 'Optional badge, e.g. In progress.', options: { list: ['In progress'] } }),
     defineField({
       name: 'contribution',
       type: 'string',

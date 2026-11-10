@@ -27,7 +27,7 @@ export default function WorkSlider() {
       </div>
 
       <div className="work-slider__bar">
-        <span className="eyebrow work-slider__hint">Drag to explore — click to open</span>
+        <span className="eyebrow work-slider__hint">Drag to explore, click to open</span>
         <div className="mode-switch" role="group" aria-label="Gallery layout">
           {Object.entries(GALLERY_MODES).map(([key, m]) => (
             <button

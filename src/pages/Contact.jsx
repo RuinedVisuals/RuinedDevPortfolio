@@ -6,12 +6,13 @@ import MagneticButton from '../components/MagneticButton/MagneticButton';
 import Pattern from '../components/Pattern/Pattern';
 import './contact.scss';
 
-// TODO: phone / Instagram / LinkedIn are placeholders from the design handoff.
+// shortcut: opens a pre-filled email; swap `href` for a Calendly link once there is one.
 const links = [
+  { label: 'Free 15 min call', detail: 'Book a slot', href: 'mailto:hello@weareruined.com?subject=Free%2015%20min%20call&body=Hi%20Apostolis%2C%20I%27d%20like%20a%20quick%20call.%20Good%20times%20for%20me%3A%20', cursor: 'Book' },
   { label: 'Email', detail: 'hello@weareruined.com', href: 'mailto:hello@weareruined.com', cursor: 'Write' },
-  { label: 'Phone', detail: '+30 690 000 0000', href: 'tel:+306900000000', cursor: 'Call' },
-  { label: 'Instagram', href: 'https://instagram.com/', cursor: 'Follow', external: true },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/', cursor: 'Connect', external: true },
+  { label: 'Phone', detail: '+30 698 033 4090', href: 'tel:+306980334090', cursor: 'Call' },
+  { label: 'Instagram', href: 'https://www.instagram.com/jean_pierre_gana/', cursor: 'Follow', external: true },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/apostolis-ganatsios/', cursor: 'Connect', external: true },
 ];
 
 export default function Contact() {
@@ -27,7 +28,7 @@ export default function Contact() {
           your project.
         </SplitReveal>
         <p className="contact-page__lead">
-          A launch, a store, or something a little experimental — write to me. I read every message and usually
+          A launch, a store, or something a little experimental: write to me. I read every message and usually
           reply within a day.
         </p>
         <div className="contact-page__links">

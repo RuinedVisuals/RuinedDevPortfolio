@@ -158,7 +158,7 @@ export default function MobileMenu({ open, onClose, links }) {
         <div className="menu__top menu__fade">
           <div className="menu__top-text">
             <span className="eyebrow">(M) Menu</span>
-            <span className="eyebrow menu__muted">Athens, GR — {time}</span>
+            <span className="eyebrow menu__muted">Athens, GR · {time}</span>
           </div>
           <button type="button" className="menu__close" onClick={onClose} data-cursor="Close">
             Close
@@ -232,7 +232,7 @@ export default function MobileMenu({ open, onClose, links }) {
           <a href="mailto:hello@weareruined.com" className="menu__mail menu__fade">
             hello@weareruined.com <Arrow />
           </a>
-          <p className="serif-line menu__tag menu__fade">Creative developer — available for new projects.</p>
+          <p className="serif-line menu__tag menu__fade">Creative developer, available for new projects.</p>
         </div>
       </div>
     </div>,

@@ -121,6 +121,7 @@ export function makePoster(p, i, scale = 1, img = null) {
   x.fillText(`(${String(i + 1).padStart(2, '0')})`, 26, 40);
   x.textAlign = 'right';
   x.fillText(p.year, 486, 40);
+  if (p.status) x.fillText(p.status.toUpperCase(), 486, 672);
   x.textAlign = 'left';
   x.font = '400 44px Anton, sans-serif';
   x.fillText(p.name.toUpperCase(), 26, 640, 460);

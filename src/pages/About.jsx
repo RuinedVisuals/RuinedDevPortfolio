@@ -15,14 +15,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 // *word* = Georgia italic emphasis.
 const MANIFESTO =
-  'Creative development is where design and engineering meet. I design the interface and build it myself, so what you approve is what ships — *fast*, accessible and easy to use. Motion, WebGL and interaction are there to *clarify* and give a brand personality, never as decoration. No templates, no shortcuts — just the *right* solution, built properly.';
+  'Creative development is where design and engineering meet. I design the interface and build it myself, so what you approve is what ships: *fast*, accessible and easy to use. Motion, WebGL and interaction are there to *clarify* and give a brand personality, never as decoration. No templates, no shortcuts, just the *right* solution, built properly.';
 const words = MANIFESTO.split(' ').map((t) => ({ t: t.replace(/\*/g, ''), em: t.startsWith('*') }));
 
 const answers = [
   {
     n: '01',
     q: 'Who am I?',
-    a: 'Apostolis — an independent creative developer and UI/UX designer based in Athens. I work with founders, studios and agencies, from brochure sites to full e-commerce builds.',
+    a: 'Apostolis, an independent creative developer and UI/UX designer based in Athens. I work with founders, studios and agencies, from brochure sites to full e-commerce builds.',
   },
   {
     n: '02',
@@ -32,11 +32,11 @@ const answers = [
   {
     n: '03',
     q: 'Why work with me?',
-    a: 'You work directly with the person who designs and builds your project, with no account managers in between. When there are other people involved — your designers, copywriters, developers — I slot into your team and workflow.',
+    a: 'You work directly with the person who designs and builds your project, with no account managers in between. When there are other people involved (your designers, copywriters, developers), I slot into your team and workflow.',
   },
 ];
 
-const PORTRAIT = '/images/about/portrait.jpg';
+const PORTRAIT = '/images/profile-2-crop.jpg';
 
 export default function About() {
   usePageMeta(pages['/about']);
@@ -81,8 +81,8 @@ export default function About() {
               done properly.
             </SplitReveal>
             <p className="about-page__lead">
-              I&rsquo;m Apostolis — an independent creative developer and UI/UX designer based in Athens. I work
-              with founders, studios and agencies to design and build distinctive, fast, intuitive websites — from
+              I&rsquo;m Apostolis, an independent creative developer and UI/UX designer based in Athens. I work
+              with founders, studios and agencies to design and build distinctive, fast, intuitive websites, from
               brochure sites to full e-commerce builds.
             </p>
           </div>
@@ -97,8 +97,6 @@ export default function About() {
                   onError={() => setHasPortrait(false)}
                 />
               )}
-              <div className="about-portrait__tint" />
-              <div className="about-portrait__ribs" />
             </div>
             <figcaption className="about-portrait__caption">
               <span>Apostolis G.</span>

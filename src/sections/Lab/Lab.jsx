@@ -8,7 +8,7 @@ const sketches = [
     n: '01',
     type: 'flow',
     title: 'Stand out',
-    meta: 'A distinctive identity customers remember — not a template your competitors can copy.',
+    meta: 'A distinctive identity customers remember, not a template your competitors can copy.',
     opts: { particles: 700 },
   },
   {
@@ -85,7 +85,7 @@ export default function Lab() {
       <div className="lab__intro">
         <p>
           Your website is the first thing customers judge. Creative development turns it into your best
-          salesperson — memorable at first sight, fast on every device, and built so people take the next step.
+          salesperson, memorable at first sight, fast on every device, and built so people take the next step.
         </p>
         <div className="lab__oval">
           <span className="lab__oval-title">Design + code</span>

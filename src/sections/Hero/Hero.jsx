@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import Arrow from '../../components/Arrow/Arrow';
 import { gsap } from 'gsap';
@@ -55,11 +56,11 @@ export default function Hero() {
           <br />
           distinctive websites.
           <span className="hero__detail">
-            Custom websites, e-commerce, creative front-end and collaborations with agencies.
+            For agencies and brands that need a fast, custom site.
           </span>
         </p>
         <div ref={ctaRef}>
-          <MagneticButton href="#contact" cursorLabel="Let's talk" className="hero__cta">
+          <MagneticButton as={Link} to="/contact" cursorLabel="Let's talk" className="hero__cta">
             Start a project <Arrow className="arrow" />
           </MagneticButton>
         </div>

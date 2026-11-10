@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import MagneticButton from '../MagneticButton/MagneticButton';
 import Arrow from '../Arrow/Arrow';
 import Pattern from '../Pattern/Pattern';
@@ -18,11 +19,11 @@ export default function CtaFooter({
         <h2 className="cta-footer__title">{title}</h2>
         {description && (
           <p className="cta-footer__description">
-            Tell me about it — I read every message and usually reply within a day.
+            Tell me about it. I read every message and usually reply within a day.
           </p>
         )}
         <div className="cta-footer__button-wrap">
-          <MagneticButton href="mailto:hello@weareruined.com" cursorLabel="Say hi" className="cta-footer__link">
+          <MagneticButton as={Link} to="/contact" cursorLabel="Contact" className="cta-footer__link">
             Contact <Arrow className="arrow" />
           </MagneticButton>
         </div>

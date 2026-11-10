@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import Arrow from '../Arrow/Arrow';
 import { gsap } from 'gsap';
@@ -204,10 +205,10 @@ export default function Footer({ ready = true }) {
             Let&rsquo;s talk.
           </h2>
           <p className="site-footer__description" ref={descRef}>
-            Tell me about it — I read every message and usually reply within a day.
+            Tell me about it. I read every message and usually reply within a day.
           </p>
           <div className="site-footer__button-wrap" ref={buttonWrapRef}>
-            <MagneticButton href="mailto:hello@weareruined.com" cursorLabel="Say hi" className="site-footer__link">
+            <MagneticButton as={Link} to="/contact" cursorLabel="Contact" className="site-footer__link">
               Contact <Arrow className="arrow" />
             </MagneticButton>
           </div>
