@@ -1,38 +1,40 @@
 [
   {
-    "slug": "rocks-villas",
+    "slug": "ag-law-firm",
     "contribution": "Design & Development",
     "technologies": [
       "React",
       "GSAP",
       "SCSS"
     ],
-    "challenge": "Two destinations, one brand, each needed its own character without splitting the story.",
-    "solution": "A shared design language with a portal per island, leading with philosophy and imagery before the booking step.",
+    "challenge": "A law firm with forty years of history needed to feel authoritative and modern at once, in Greek and English.",
+    "solution": "A cinematic, editorial site: a full-bleed hero, a column-style menu, and practice areas laid out like numbered articles.",
     "shots": {
       "desktop": [
-        "/images/work/rocks-villas/desktop-1.jpg",
-        "/images/work/rocks-villas/desktop-2.jpg"
+        "/images/work/ag-law-firm/desktop-1.webp",
+        "/images/work/ag-law-firm/desktop-2.png",
+        "/images/work/ag-law-firm/desktop-3.webp"
       ],
       "mobile": [
-        "/images/work/rocks-villas/mobile-1.jpg",
-        "/images/work/rocks-villas/mobile-2.jpg"
+        "/images/work/ag-law-firm/mobile-1.png",
+        "/images/work/ag-law-firm/mobile-2.png",
+        "/images/work/ag-law-firm/mobile-3.png"
       ]
     },
-    "name": "Rocks Villas",
-    "tagline": "Privacy, comfort and authentic island living.",
-    "category": "Web design & development",
+    "name": "AG Law Firm",
+    "tagline": "Legal experience. Modern thinking.",
+    "category": "Law firm website",
     "tag": "Web",
     "year": "2026",
-    "color": "#2a1612",
-    "url": "https://rocksvillas.com/",
-    "client": "Rocks Villas",
+    "color": "#050619",
+    "url": "https://aglawfirm.co/",
+    "client": "AG Law Firm, Volos",
     "services": [
       "Art direction",
       "Web design",
       "Front-end development"
     ],
-    "description": "A refined collection of handpicked villas across Mykonos and Paros. One brand, two destination portals, a calm, image-led site that leads with philosophy and story before it ever asks you to book."
+    "description": "The site of a family law practice in Volos, active since 1983. A bilingual, editorial layout in navy and gold, with commercial, corporate and real estate practice areas presented like numbered articles."
   },
   {
     "slug": "paobc",
