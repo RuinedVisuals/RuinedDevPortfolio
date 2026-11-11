@@ -197,7 +197,7 @@
     background: var(--surface-a);
     color: var(--ink-on-a);
     padding: clamp(40px, 6vw, 80px) v.$gutter clamp(64px, 9vw, 140px);
-    overflow: hidden;
+    overflow: clip; // not `hidden`: that would make this a scroll container and kill the sticky cards
   }
 
   &__gallery-head {
@@ -221,25 +221,23 @@
     }
   }
 
-  // 12-col bento: full / wide (8) + phone (4) rows.
+  // Stacking deck: cards stick under the header, each a little lower than
+  // the last so the edges of the ones underneath stay visible.
   &__grid {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: clamp(28px, 5vw, 72px) clamp(16px, 2.4vw, 36px);
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-
-    @include m.tablet {
-      grid-template-columns: 1fr;
-    }
+    gap: 16vh;
   }
 
   &__cell {
+    position: sticky;
+    top: calc(var(--header-h) + 12px + var(--i, 0) * 14px);
+    // Sized off the viewport height so a whole card always fits on screen.
+    width: min(100%, 1400px, calc((100svh - var(--header-h) - 150px) * 1.6));
     display: flex;
     flex-direction: column;
     gap: 14px;
-    will-change: transform;
 
     figcaption {
       display: flex;
@@ -251,40 +249,33 @@
         font-variant-numeric: tabular-nums;
       }
     }
-
-    &--full {
-      grid-column: 1 / -1;
-    }
-
-    &--wide {
-      grid-column: span 8;
-    }
-
-    &--phone {
-      grid-column: span 4;
-      align-items: center;
-    }
-
-    @include m.tablet {
-      &--full,
-      &--wide,
-      &--phone {
-        grid-column: 1;
-      }
-
-      &--phone {
-        width: min(62%, 300px);
-        justify-self: center;
-      }
-    }
   }
 
   &__frame {
     width: 100%;
+    transform-origin: top center;
+    will-change: transform;
   }
 
-  &__cell--phone &__frame {
-    width: min(100%, 300px);
+  // All phone captures side by side, in a card the size of a browser card.
+  &__phones {
+    aspect-ratio: 1440 / 872;
+    display: flex;
+    justify-content: center;
+    gap: clamp(12px, 4vw, 64px);
+    padding: clamp(14px, 3vw, 40px);
+    border: 1px solid var(--line-on-a);
+    border-radius: 12px;
+    background: var(--surface-b);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+
+    @include m.tablet {
+      aspect-ratio: 1;
+
+      .project-detail__phone:nth-child(n + 3) {
+        display: none;
+      }
+    }
   }
 
   &__browser {
@@ -337,7 +328,8 @@
     overflow: hidden;
     background: center / cover;
 
-    img {
+    img,
+    video {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -354,6 +346,7 @@
 
   &__phone {
     position: relative;
+    height: 100%;
     aspect-ratio: 390 / 844;
     border: 7px solid #0a0a0a;
     border-radius: 38px;

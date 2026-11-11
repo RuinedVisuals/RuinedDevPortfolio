@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePageMeta } from '../components/Seo/usePageMeta';
 import { projectMeta } from '../data/seo';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Arrow from '../components/Arrow/Arrow';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, useLocation, Link, Navigate } from 'react-router-dom';
 import SplitReveal from '../components/SplitReveal/SplitReveal';
 import MagneticButton from '../components/MagneticButton/MagneticButton';
 import Pattern from '../components/Pattern/Pattern';
@@ -14,8 +12,6 @@ import { useTheme } from '../context/ThemeContext';
 import { getPosterURLs } from '../lib/posters';
 import { projects } from '../data/projects';
 import './project-detail.scss';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const pad = (n) => String(n).padStart(2, '0');
 const ECHOES = [1, 2, 3];
@@ -27,20 +23,14 @@ const hostOf = (url) => {
   }
 };
 
-// Gallery layout: one full-width browser, then alternating browser / phone
-// rows. Falls back gracefully when a project has fewer captures.
-function buildShots(shots) {
+// Gallery deck: one card per desktop capture (a screen recording leads when
+// there is one), with all the phone captures sharing a single card.
+function buildShots(shots, video) {
   const d = shots?.desktop || [];
   const m = shots?.mobile || [];
-  const out = [];
-  if (d[0]) out.push({ kind: 'full', src: d[0], label: 'Homepage', speed: 0 });
-  if (d[1]) out.push({ kind: 'wide', src: d[1], label: 'Desktop', speed: 4 });
-  if (m[0]) out.push({ kind: 'phone', src: m[0], label: 'Mobile', speed: 12 });
-  if (d[2] && m[1]) {
-    out.push({ kind: 'phone', src: m[1], label: 'Mobile', speed: 8 });
-    out.push({ kind: 'wide', src: d[2], label: 'Desktop', speed: 3 });
-  }
-  d.slice(m[1] ? 3 : 2).forEach((src) => out.push({ kind: 'wide', src, label: 'Desktop', speed: 3 }));
+  const out = d.map((src, i) => ({ src, label: i ? 'Desktop' : 'Homepage' }));
+  if (video) out[0] = { src: video, video: true, poster: d[0], label: 'Walkthrough' };
+  if (m.length) out.splice(Math.min(2, out.length), 0, { src: m[0], phones: m.slice(0, 3), label: 'Mobile' });
   return out;
 }
 
@@ -56,6 +46,9 @@ function ProjectDetail({ slug }) {
   const [posters, setPosters] = useState([]);
   const [nextHover, setNextHover] = useState(false);
   const echoRefs = useRef([]);
+  // Arrived by a gallery card expanding into this hero: skip its own wipe-in.
+  const fromCard = !!useLocation().state?.expand;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const index = projects.findIndex((p) => p.slug === slug);
   const project = projects[index];
@@ -81,33 +74,32 @@ function ProjectDetail({ slug }) {
   }, []);
 
   usePageMeta(project ? { ...projectMeta(project), path: `/work/${slug}` } : { title: 'Project | RUINED', path: `/work/${slug}` });
-  const gallery = buildShots(project?.shots);
-  // Cells drift at slightly different speeds as they scroll through.
+  const gallery = buildShots(project?.shots, project?.video);
+  // Stacking deck: each card sticks under the header (CSS) and, as the next
+  // one slides up over it, shrinks and dims. Read from live rects on scroll,
+  // so it stays right however the page reflows.
   const galleryRef = useRef(null);
   useEffect(() => {
     const root = galleryRef.current;
-    if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-    const ctx = gsap.context(() => {
-      root.querySelectorAll('[data-speed]').forEach((el) => {
-        const speed = Number(el.dataset.speed);
-        if (!speed) return;
-        gsap.fromTo(
-          el,
-          { yPercent: speed },
-          { yPercent: -speed, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } }
-        );
+    if (!root || reduce) return undefined;
+    const cells = [...root.querySelectorAll('.project-detail__cell')];
+    const update = () => {
+      const vh = window.innerHeight;
+      cells.forEach((el, i) => {
+        const next = cells[i + 1];
+        if (!next) return;
+        const top = el.getBoundingClientRect().top;
+        // 0 until the next card enters the viewport, 1 once it has slid up to this one.
+        const p = top < vh ? Math.min(1, Math.max(0, (vh - next.getBoundingClientRect().top) / (vh - top))) : 0;
+        const frame = el.firstElementChild;
+        frame.style.transform = `scale(${1 - 0.08 * p})`;
+        frame.style.filter = p ? `brightness(${1 - 0.5 * p})` : '';
       });
-      root.querySelectorAll('.project-detail__cell').forEach((el) => {
-        gsap.from(el.querySelector('.project-detail__frame'), {
-          clipPath: 'inset(0 0 100% 0)',
-          duration: 1.2,
-          ease: 'power4.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-        });
-      });
-    }, root);
-    return () => ctx.revert();
-  }, [gallery.length]);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, [gallery.length, reduce]);
 
   if (!project) return <Navigate to="/work" replace />;
 
@@ -119,7 +111,7 @@ function ProjectDetail({ slug }) {
   return (
     <>
       <section className="project-detail__hero" data-cursor="Move">
-        <HeroGL index={index} />
+        <HeroGL index={index} reveal={!fromCard} />
         <div className="project-detail__hero-shade" />
         <div className="project-detail__pos">
           {pad(index + 1)} / {pad(projects.length)}
@@ -230,16 +222,16 @@ function ProjectDetail({ slug }) {
         {gallery.length ? (
           <div className="project-detail__grid">
             {gallery.map((s, i) => (
-              <figure
-                key={s.src}
-                className={`project-detail__cell project-detail__cell--${s.kind}`}
-                data-speed={s.speed}
-              >
+              <figure key={s.src} className="project-detail__cell" style={{ '--i': i }}>
                 <div className="project-detail__frame">
-                  {s.kind === 'phone' ? (
-                    <div className="project-detail__phone">
-                      <span className="project-detail__phone-notch" aria-hidden="true" />
-                      <img src={s.src} alt={`${project.name}, ${s.label}`} loading="lazy" />
+                  {s.phones ? (
+                    <div className="project-detail__phones">
+                      {s.phones.map((src) => (
+                        <div key={src} className="project-detail__phone">
+                          <span className="project-detail__phone-notch" aria-hidden="true" />
+                          <img src={src} alt={`${project.name}, ${s.label}`} loading="lazy" />
+                        </div>
+                      ))}
                     </div>
                   ) : (
                     <div className="project-detail__browser">
@@ -252,7 +244,20 @@ function ProjectDetail({ slug }) {
                         <span className="project-detail__browser-url">{host || project.name}</span>
                       </div>
                       <div className="project-detail__browser-view">
-                        <img src={s.src} alt={`${project.name}, ${s.label}`} loading="lazy" />
+                        {s.video ? (
+                          <video
+                            src={s.src}
+                            poster={s.poster}
+                            aria-label={`${project.name}, ${s.label}`}
+                            muted
+                            loop
+                            playsInline
+                            autoPlay={!reduce}
+                            controls={reduce}
+                          />
+                        ) : (
+                          <img src={s.src} alt={`${project.name}, ${s.label}`} loading="lazy" />
+                        )}
                       </div>
                     </div>
                   )}
@@ -265,7 +270,7 @@ function ProjectDetail({ slug }) {
             ))}
           </div>
         ) : (
-          <figure className="project-detail__cell project-detail__cell--full">
+          <figure className="project-detail__cell">
             <div className="project-detail__frame">
               <div className="project-detail__browser">
                 <div className="project-detail__browser-bar">

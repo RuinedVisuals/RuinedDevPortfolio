@@ -23,12 +23,13 @@ void main(){ vUv=uv; vec3 p=position; p.z-=uBend*p.x*p.x; gl_Position=projection
 
 // Rounded-rect card, grayscale texture → duotone (hover swaps to the
 // hover-light with a slight red-channel split), animated grain, dimmed back.
-const FS = /* glsl */ `uniform sampler2D uTex; uniform vec3 uDark; uniform vec3 uLight; uniform vec3 uHi; uniform float uHover; uniform float uOp; uniform float uTime; uniform float uGrain; varying vec2 vUv;
+const FS = /* glsl */ `uniform sampler2D uTex; uniform vec3 uDark; uniform vec3 uLight; uniform vec3 uHi; uniform float uHover; uniform float uOp; uniform float uTime; uniform float uGrain; uniform vec2 uCover; varying vec2 vUv;
 float h(vec2 p){ return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453); }
 void main(){
   vec2 p=(vUv-0.5)*vec2(2.0,2.75); float r=0.07; float d=length(max(abs(p)-vec2(1.0,1.375)+r,0.0))-r;
   float a=1.0-smoothstep(-0.006,0.0,d);
-  float sh=0.006*uHover; float l=texture2D(uTex,vUv).r; float lr=texture2D(uTex,vUv+vec2(sh,0.0)).r;
+  vec3 lw=vec3(0.299,0.587,0.114); vec2 uv=(vUv-0.5)*uCover+0.5;
+  float sh=0.006*uHover; float l=dot(texture2D(uTex,uv).rgb,lw); float lr=dot(texture2D(uTex,uv+vec2(sh,0.0)).rgb,lw);
   vec3 col=mix(uDark,uLight,l); vec3 hov=mix(uDark,uHi,l); hov.r=mix(uDark.r,uHi.r,lr);
   col=mix(col,hov,uHover);
   col+=(h(vUv*vec2(512.0,704.0)+fract(uTime*0.37))-0.5)*uGrain;
@@ -83,7 +84,9 @@ function layout(i, mode, off, o) {
  * switching mode or filtering items animates rather than jumps.
  *
  * opts: posters (grayscale canvases, one per project), colors ({pd,pl,ph}),
- * mode, items (project indices to show), grain, onActive(i), onOpen(i).
+ * mode, items (project indices to show), grain, onActive(i),
+ * onOpen(i, rect) (rect = the card's on-screen box, for the page transition),
+ * videos (optional url per project, plays on that project's cards while active).
  */
 export function createGallery(el, opt) {
   THREE.ColorManagement.enabled = false;
@@ -120,6 +123,21 @@ export function createGallery(el, opt) {
     return t;
   });
 
+  // Optional screen recording per project; nothing downloads until it is active.
+  const vids = (reduce ? [] : opt.videos || []).map((src) => {
+    if (!src) return null;
+    const v = document.createElement('video');
+    Object.assign(v, { src, muted: true, loop: true, playsInline: true, preload: 'none' });
+    return { v, t: new THREE.VideoTexture(v) };
+  });
+  const syncVideos = () =>
+    vids.forEach((vd, i) => {
+      if (!vd) return;
+      if (g.visible && i === g.active) vd.v.play().catch(() => {});
+      else vd.v.pause();
+    });
+  const CARD = 2 / 2.75;
+
   const c0 = opt.colors;
   const cards = [];
   for (let i = 0; i < N; i++) {
@@ -139,6 +157,7 @@ export function createGallery(el, opt) {
         uTime: { value: 0 },
         uGrain: { value: g.grain },
         uBend: { value: 0 },
+        uCover: { value: new THREE.Vector2(1, 1) },
       },
     });
     const m = new THREE.Mesh(geo, mat);
@@ -176,7 +195,10 @@ export function createGallery(el, opt) {
   const ro = new ResizeObserver(resize);
   ro.observe(el);
   resize();
-  const io = new IntersectionObserver((es) => es.forEach((e) => (g.visible = e.isIntersecting)));
+  const io = new IntersectionObserver((es) => {
+    es.forEach((e) => (g.visible = e.isIntersecting));
+    syncVideos();
+  });
   io.observe(el);
 
   const aim = (e) => {
@@ -208,8 +230,25 @@ export function createGallery(el, opt) {
     // No hover on touch: drop the aim once the finger lifts.
     if (e.pointerType === 'touch') ndc.set(9, 9);
   };
+  // Screen-space bounding box of a card, in viewport px.
+  const rectOf = (m) => {
+    const b = el.getBoundingClientRect();
+    const xs = [];
+    const ys = [];
+    for (const [cx, cy] of [[-1, -1.375], [1, -1.375], [-1, 1.375], [1, 1.375]]) {
+      tmpA.set(cx, cy, 0).applyMatrix4(m.matrixWorld).project(cam);
+      xs.push(b.left + ((tmpA.x + 1) / 2) * b.width);
+      ys.push(b.top + ((1 - tmpA.y) / 2) * b.height);
+    }
+    const left = Math.min(...xs);
+    const top = Math.min(...ys);
+    return { left, top, width: Math.max(...xs) - left, height: Math.max(...ys) - top };
+  };
   const pu = (e) => {
-    if (g.down && g.down.moved < 6 && g.hovered >= 0) opt.onOpen?.(cards[g.hovered].userData.p);
+    if (g.down && g.down.moved < 6 && g.hovered >= 0) {
+      const m = cards[g.hovered];
+      opt.onOpen?.(m.userData.p, rectOf(m));
+    }
     release(e);
   };
   const pl = () => {
@@ -277,6 +316,15 @@ export function createGallery(el, opt) {
       m.scale.setScalar(c.s * (1 + 0.05 * u.hov));
       const un = m.material.uniforms;
       un.uOp.value = c.o;
+      const vd = vids[u.p];
+      if (vd && u.p === g.active && vd.v.readyState >= 2) {
+        const va = vd.v.videoWidth / vd.v.videoHeight;
+        un.uTex.value = vd.t;
+        un.uCover.value.set(Math.min(1, CARD / va), Math.min(1, va / CARD));
+      } else {
+        un.uTex.value = tex[u.p];
+        un.uCover.value.set(1, 1);
+      }
       un.uHover.value = u.hov;
       un.uTime.value = t;
       un.uGrain.value = g.grain;
@@ -296,6 +344,7 @@ export function createGallery(el, opt) {
     if (act >= 0 && act !== g.active) {
       g.active = act;
       opt.onActive?.(act);
+      syncVideos();
     }
     el.style.cursor = g.hovered >= 0 ? 'pointer' : '';
     r.render(scene, cam);
@@ -342,6 +391,13 @@ export function createGallery(el, opt) {
       el.removeEventListener('pointerleave', pl);
       geo.dispose();
       tex.forEach((t) => t.dispose());
+      vids.forEach((vd) => {
+        if (!vd) return;
+        vd.v.pause();
+        vd.v.removeAttribute('src');
+        vd.v.load();
+        vd.t.dispose();
+      });
       cards.forEach((m) => m.material.dispose());
       r.dispose();
       r.domElement.remove();

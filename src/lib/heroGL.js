@@ -30,6 +30,7 @@ void main(){
 export function createHeroGL(el, poster, opt) {
   THREE.ColorManagement.enabled = false;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveal = !reduce && opt.reveal !== false;
   const r = new THREE.WebGLRenderer({ antialias: false });
   r.outputColorSpace = THREE.LinearSRGBColorSpace;
   r.setPixelRatio(Math.min(1.5, window.devicePixelRatio));
@@ -45,7 +46,7 @@ export function createHeroGL(el, poster, opt) {
     uMouse: { value: new THREE.Vector2(0.5, 0.5) },
     uVel: { value: 0 },
     uTime: { value: 0 },
-    uReveal: { value: reduce ? 0 : 1 },
+    uReveal: { value: reveal ? 1 : 0 },
     uGrain: { value: opt.grain ?? 0.12 },
     uLens: { value: reduce ? 0 : 1 },
     uDark: { value: new THREE.Color(c.pd) },
@@ -95,7 +96,7 @@ export function createHeroGL(el, poster, opt) {
     u.uMouse.value.set(m.x, m.y);
     u.uVel.value = m.v;
     u.uTime.value = reduce ? 0 : t;
-    if (!reduce) u.uReveal.value = 1 - ease(clamp((t - 0.3) / 1.4));
+    if (reveal) u.uReveal.value = 1 - ease(clamp((t - 0.3) / 1.4));
     r.render(scene, cam);
   };
   raf = requestAnimationFrame(tick);

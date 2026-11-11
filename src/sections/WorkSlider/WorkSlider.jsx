@@ -49,7 +49,7 @@ export default function WorkSlider() {
         ref={galleryRef}
         mode={mode}
         onActive={setActive}
-        onOpen={(i) => navigate(`/work/${projects[i].slug}`)}
+        onOpen={(i, rect) => navigate(`/work/${projects[i].slug}`, { state: { expand: rect } })}
       >
         {mode === 'pile' && (
           <div className="pile-card">

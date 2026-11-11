@@ -2,6 +2,7 @@ import { useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } fro
 import { useTheme } from '../../context/ThemeContext';
 import { createGallery } from '../../lib/gallery3d';
 import { getPosters } from '../../lib/posters';
+import { projects } from '../../data/projects';
 import './gallery3d.scss';
 
 /**
@@ -28,12 +29,13 @@ export default function Gallery3D({ ref, mode = 'ring', items, grain = 0.12, onA
       const l = live.current;
       galRef.current = createGallery(stageRef.current, {
         posters,
+        videos: projects.map((p) => p.video),
         colors: l.colors,
         mode: l.mode,
         items: l.items,
         grain: l.grain,
         onActive: (i) => live.current.onActive?.(i),
-        onOpen: (i) => live.current.onOpen?.(i),
+        onOpen: (i, rect) => live.current.onOpen?.(i, rect),
       });
       setReady(true);
     });

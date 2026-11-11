@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigationType } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { getLenis } from '../../hooks/useLenis';
 import { EASE_CINEMATIC } from '../../lib/ease';
+import { useThemeColorsRef } from '../../context/ThemeContext';
+import { getPosterURLs } from '../../lib/posters';
+import { projects } from '../../data/projects';
 import './curtain.scss';
 
 /**
@@ -24,6 +27,9 @@ export default function CurtainTransition({ children }) {
   const [displayLocation, setDisplayLocation] = useState(location);
   const displayLocationRef = useRef(displayLocation);
   const panelRefs = useRef([]);
+  const expandRef = useRef(null);
+  const navType = useNavigationType();
+  const colorsRef = useThemeColorsRef();
 
   useEffect(() => {
     if (location.pathname === displayLocationRef.current.pathname) return undefined;
@@ -41,6 +47,35 @@ export default function CurtainTransition({ children }) {
       },
     });
 
+    const swap = () => {
+      lenis?.scrollTo(0, { immediate: true });
+      window.scrollTo(0, 0);
+      displayLocationRef.current = location;
+      setDisplayLocation(location);
+    };
+
+    // Opened from a gallery card (state.expand = its on-screen rect): the card
+    // grows to fill the viewport, the project page mounts behind it, then it
+    // fades into that page's hero. PUSH only, so back/forward keep the curtain.
+    const rect = navType === 'PUSH' && location.state?.expand;
+    const card = expandRef.current;
+    if (rect && card && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const idx = projects.findIndex((p) => `/work/${p.slug}` === location.pathname);
+      getPosterURLs(colorsRef.current).then((urls) => {
+        card.style.backgroundImage = urls[idx] ? `url(${urls[idx]})` : 'none';
+      });
+      tl.set(card, { ...rect, borderRadius: 14, autoAlpha: 1 })
+        .to(card, { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight, borderRadius: 0, duration: 0.9 })
+        .call(swap)
+        .to(card, { autoAlpha: 0, duration: 0.6, delay: 0.35, ease: 'power1.out' });
+      return () => {
+        tl.kill();
+        gsap.set(card, { autoAlpha: 0 });
+        document.body.classList.remove('is-transitioning');
+        lenis?.start();
+      };
+    }
+
     // y: 0 clears the pixel offset GSAP infers the first time it parses the
     // panel's resting `transform: translateY(100%)` from curtain.scss — left
     // unset, that offset gets baked in as a fixed baseline and every later
@@ -49,12 +84,7 @@ export default function CurtainTransition({ children }) {
     // clears the viewport.
     tl.set(panelsEls, { yPercent: 100, y: 0 })
       .to(panelsEls, { yPercent: 0, duration: 0.65, stagger: 0.05 })
-      .call(() => {
-        lenis?.scrollTo(0, { immediate: true });
-        window.scrollTo(0, 0);
-        displayLocationRef.current = location;
-        setDisplayLocation(location);
-      })
+      .call(swap)
       // Leaves top layer first (--sa), uncovering the --sb one beneath it.
       .to([...panelsEls].reverse(), { yPercent: -100, duration: 0.65, stagger: 0.05, delay: 0.08 });
 
@@ -68,7 +98,7 @@ export default function CurtainTransition({ children }) {
       document.body.classList.remove('is-transitioning');
       lenis?.start();
     };
-  }, [location]);
+  }, [location, navType, colorsRef]);
 
   return (
     <>
@@ -76,6 +106,7 @@ export default function CurtainTransition({ children }) {
         {/* Two full-viewport layers: --sb underneath, --sa on top. */}
         <div ref={(el) => (panelRefs.current[0] = el)} className="curtain__panel" />
         <div ref={(el) => (panelRefs.current[1] = el)} className="curtain__panel" />
+        <div ref={expandRef} className="curtain__expand" />
       </div>
       {children(displayLocation)}
     </>

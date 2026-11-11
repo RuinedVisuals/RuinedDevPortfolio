@@ -19,6 +19,13 @@
   }
 }
 
+.curtain__expand {
+  position: fixed;
+  z-index: 2;
+  visibility: hidden;
+  background: var(--sb) center / cover no-repeat;
+}
+
 body.is-transitioning {
   cursor: wait;
 }

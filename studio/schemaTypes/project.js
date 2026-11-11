@@ -43,6 +43,13 @@ export default defineType({
     defineField({ name: 'solution', type: 'text', rows: 3 }),
     shots('desktopShots', 'Desktop screenshots'),
     shots('mobileShots', 'Mobile screenshots'),
+    defineField({
+      name: 'video',
+      title: 'Screen recording',
+      type: 'file',
+      options: { accept: 'video/mp4,video/webm' },
+      description: 'Optional. Short, muted, a few MB at most.',
+    }),
   ],
   preview: { select: { title: 'name', subtitle: 'category', media: 'desktopShots.0' } },
 });

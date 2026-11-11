@@ -102,7 +102,7 @@ export default function Work() {
           mode={mode}
           items={items}
           onActive={setActive}
-          onOpen={(i) => navigate(`/work/${projects[i].slug}`)}
+          onOpen={(i, rect) => navigate(`/work/${projects[i].slug}`, { state: { expand: rect } })}
           className="work-gallery__stage"
         >
           {mode === 'pile' && (

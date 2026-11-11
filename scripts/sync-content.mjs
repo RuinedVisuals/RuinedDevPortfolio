@@ -18,7 +18,8 @@ const query = `*[_type == "project"] | order(order asc) {
   "slug": slug.current, name, tagline, category, tag, status, contribution, year, color, url, client,
   services, technologies, description, challenge, solution,
   "desktop": desktopShots[].asset->url,
-  "mobile": mobileShots[].asset->url
+  "mobile": mobileShots[].asset->url,
+  "video": video.asset->url
 }`;
 const api = `https://${id}.apicdn.sanity.io/v2024-01-01/data/query/${dataset}?query=${encodeURIComponent(query)}`;
 const headers = process.env.SANITY_READ_TOKEN ? { Authorization: `Bearer ${process.env.SANITY_READ_TOKEN}` } : {};
@@ -40,10 +41,20 @@ async function mirror(urls = [], slug, prefix) {
   return out;
 }
 
+async function mirrorVideo(url, slug) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`sync-content: video download failed ${url}`);
+  const file = `${slug}.${url.split('.').pop()}`;
+  mkdirSync(join(root, 'public', 'videos', 'work'), { recursive: true });
+  writeFileSync(join(root, 'public', 'videos', 'work', file), Buffer.from(await r.arrayBuffer()));
+  return `/videos/work/${file}`;
+}
+
 const projects = [];
-for (const { desktop, mobile, ...p } of result) {
+for (const { desktop, mobile, video, ...p } of result) {
   projects.push({
     ...p,
+    ...(video && { video: await mirrorVideo(video, p.slug) }),
     shots: { desktop: await mirror(desktop, p.slug, 'desktop'), mobile: await mirror(mobile, p.slug, 'mobile') },
   });
 }

@@ -3,6 +3,8 @@ import data from './projects.json' with { type: 'json' };
 // `tag` drives the Work page filters ('Web' | 'E-commerce' | 'Experimental').
 // `shots` = captures of the live site (public/images/work/<slug>/), shown in
 // browser / phone frames on the project page.
+// `video` (optional) = a short muted screen recording, e.g. '/videos/work/<slug>.mp4':
+// plays on the project's gallery card while active and leads its project page gallery.
 // `contribution` = 'Design' | 'Development' | 'Design & Development'.
 // `challenge` / `solution` feed the project page's case study; add an optional
 // `results` string (and `highlights: []`) per project once there is something real to say.
