@@ -176,38 +176,37 @@ function ProjectDetail({ slug }) {
 
       <section className="project-detail__idea">
         <span className="eyebrow project-detail__idea-tag">(01) The idea</span>
-        <div className="project-detail__echo">
-          <div className="project-detail__word">{word}</div>
-          {ECHOES.map((k, i) => (
-            <div
-              key={k}
-              ref={(el) => (echoRefs.current[i] = el)}
-              className={`project-detail__word project-detail__word--echo project-detail__word--echo-${k}`}
-              aria-hidden="true"
-            >
-              {word}
-            </div>
-          ))}
-        </div>
-        <p className="serif-line project-detail__quote">&ldquo;{project.tagline}&rdquo;</p>
-      </section>
-
-      {(project.challenge || project.solution || project.results) && (
-        <section className="project-detail__case">
-          {[
-            ['Challenge', project.challenge],
-            ['Solution', project.solution],
-            ['Results', project.results],
-          ]
-            .filter(([, text]) => text)
-            .map(([label, text]) => (
-              <div key={label} className="project-detail__case-col">
-                <span className="eyebrow">{label}</span>
-                <p>{text}</p>
+        <div className="project-detail__idea-grid">
+          <div className="project-detail__echo" style={{ '--chars': word.length }}>
+            <div className="project-detail__word">{word}</div>
+            {ECHOES.map((k, i) => (
+              <div
+                key={k}
+                ref={(el) => (echoRefs.current[i] = el)}
+                className={`project-detail__word project-detail__word--echo project-detail__word--echo-${k}`}
+                aria-hidden="true"
+              >
+                {word}
               </div>
             ))}
-        </section>
-      )}
+          </div>
+          <div className="project-detail__idea-side">
+            {[
+              ['Challenge', project.challenge],
+              ['Solution', project.solution],
+              ['Results', project.results],
+            ]
+              .filter(([, text]) => text)
+              .map(([label, text]) => (
+                <div key={label} className="project-detail__case-col">
+                  <span className="eyebrow">{label}</span>
+                  <p>{text}</p>
+                </div>
+              ))}
+            <p className="serif-line project-detail__quote">&ldquo;{project.tagline}&rdquo;</p>
+          </div>
+        </div>
+      </section>
 
       <section className="project-detail__gallery" ref={galleryRef}>
         <div className="project-detail__gallery-head">
